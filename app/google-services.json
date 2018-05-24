@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "565373805810",
+    "firebase_url": "https://facebox-89904.firebaseio.com",
+    "project_id": "facebox-89904",
+    "storage_bucket": "facebox-89904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565373805810:android:ee38823bcf781cb6",
+        "android_client_info": {
+          "package_name": "com.pipitliandani.android.facebox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565373805810-3rclr0eli4ka42rpij9jhktbt4jk6772.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pipitliandani.android.facebox",
+            "certificate_hash": "c6e0b12b0de7aa7dc762a712d72455ce7d6a93a0"
+          }
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEY2Ugyt3YzC5XAX_5UXDfAJ8nQACPTZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
