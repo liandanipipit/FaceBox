@@ -2,6 +2,7 @@ package com.pipitliandani.android.facebox;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,14 +41,43 @@ public class Profile extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshoot : dataSnapshot.getChildren()){
+                    FaceBoxModel detail = postSnapshoot.getValue(FaceBoxModel.class);
+
+                    String nameKey = detail.getName().toString();
+                    String nikKey = detail.getNik().toString();
+                    String unitKey = detail.getUnit().toString();
+                    String workUnitKey = detail.getWorkUnit();
+                    String functionTitleKey = detail.getFunctionTitle();
+                    String emailKey = detail.getEmail();
+                    String placeKey = detail.getPlaceOfBirth();
+                    String eduLevelKey = detail.getEduLevel();
+                    String majorKey = detail.getMajor();
+                    String phoneKey = detail.getPhone();
+
+                    name.setText(nameKey);
+                    nik.setText(nikKey);
+                    unit.setText(unitKey);
+                    workUnit.setText(workUnitKey);
+                    functionTitle.setText(functionTitleKey);
+                    email.setText(emailKey);
+                    placeOfBirth.setText(placeKey);
+                    eduLevel.setText(eduLevelKey);
+                    major.setText(majorKey);
+                    phone.setText(phoneKey);
+
+                }
 
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getMessage());
+
 
             }
-        })
+        });
 
     }
 }
