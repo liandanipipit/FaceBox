@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -33,6 +34,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
+    implementation 'com.android.support:design:26.0.0-beta1'
 }
 
 
