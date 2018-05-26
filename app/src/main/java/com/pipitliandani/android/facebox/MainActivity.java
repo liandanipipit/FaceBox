@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -20,8 +21,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
     RecyclerView rViewmain;
     DatabaseReference mDatabase;
-    CardView cv;
-    private static Context context;
 
 
     @Override
@@ -29,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rViewmain = findViewById(R.id.rViewMain);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("data");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
         mDatabase.keepSynced(true);
-        context = this;
 
         rViewmain = (RecyclerView)findViewById(R.id.rViewMain);
         rViewmain.setHasFixedSize(true);
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.setName(model.getName());
                 viewHolder.setUnit(model.getUnit());
                 viewHolder.setImage(getApplicationContext(), model.getImage_url());
+                viewHolder.Profile(getApplicationContext());
+
 
             }
         };
@@ -61,13 +61,6 @@ public class MainActivity extends AppCompatActivity {
         public FaceViewHolder(View itemView){
             super(itemView);
             view = itemView;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, Profile.class);
-                    context.startActivity(i);
-                }
-            });
         }
         public void setName(String name){
             TextView nameListItem = (TextView)view.findViewById(R.id.nameListItem);
@@ -82,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
             Picasso.with(contx).load(image).placeholder(R.color.grey)
                     .error(R.mipmap.ic_launcher).transform(new CircleTransform()).into(imageView);
         }
+        public void Profile(final Context cont){
+            LinearLayout layout = (LinearLayout)view.findViewById(R.id.layoutItemView);
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(cont, Profile.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    cont.startActivity(i);
+                }
+            });
+        }
+
 
     }
 
