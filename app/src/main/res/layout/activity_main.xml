@@ -8,6 +8,7 @@
     android:layout_margin="8dp"
     tools:context="com.pipitliandani.android.facebox.MainActivity">
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -21,5 +22,8 @@
         android:id="@+id/rViewMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:scrollbars="vertical"/>
+
+
 </LinearLayout>

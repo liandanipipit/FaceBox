@@ -8,7 +8,7 @@ public class FaceBoxModel {
     public String key;
     public String image_url;
     public String name;
-    public Long nik;
+    public String nik;
     public String unit;
     public String workUnit;
     public String functionTitle;
@@ -21,7 +21,7 @@ public class FaceBoxModel {
     public FaceBoxModel() {
     }
 
-    public FaceBoxModel(String key, String image_url, String name, Long nik, String unit, String workUnit, String functionTitle, String email, String placeOfBirth, String eduLevel, String major, String phone) {
+    public FaceBoxModel(String key, String image_url, String name, String nik, String unit, String workUnit, String functionTitle, String email, String placeOfBirth, String eduLevel, String major, String phone) {
         this.key = key;
         this.image_url = image_url;
         this.name = name;
@@ -60,11 +60,11 @@ public class FaceBoxModel {
         this.name = name;
     }
 
-    public Long getNik() {
+    public String getNik() {
         return nik;
     }
 
-    public void setNik(Long nik) {
+    public void setNik(String nik) {
         this.nik = nik;
     }
 
