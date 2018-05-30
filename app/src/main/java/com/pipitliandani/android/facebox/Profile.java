@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends AppCompatActivity {
     TextView name, nik, unit, workUnit,
-    functionTitle, email, placeOfBirth, eduLevel, major, phone;
+    functionTitle, email, placeOfBirth, eduLevel, major, phone, birthday;
     CircleImageView image;
     DatabaseReference databaseReference;
     private StorageReference mStorage;
@@ -50,7 +50,9 @@ public class Profile extends AppCompatActivity {
         eduLevel = (TextView) findViewById(R.id.eduLevel);
         major = (TextView) findViewById(R.id.major);
         phone = (TextView) findViewById(R.id.phone);
+        birthday = (TextView) findViewById(R.id.birthday);
         image = (CircleImageView) findViewById(R.id.profileImage);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("employee");
         Query query = databaseReference.orderByChild("id").equalTo(key);
@@ -68,6 +70,7 @@ public class Profile extends AppCompatActivity {
                     String workUnitKey = detail.getWorkUnit();
                     String functionTitleKey = detail.getFunctionTitle();
                     String emailKey = detail.getEmail();
+                    String birthdateKey = detail.getBirthDate();
                     String placeKey = detail.getPlaceOfBirth();
                     String eduLevelKey = detail.getEduLevel();
                     String majorKey = detail.getMajor();
@@ -80,6 +83,7 @@ public class Profile extends AppCompatActivity {
                     workUnit.setText(workUnitKey);
                     functionTitle.setText(functionTitleKey);
                     email.setText(emailKey);
+                    birthday.setText(birthdateKey);
                     placeOfBirth.setText(placeKey);
                     eduLevel.setText(eduLevelKey);
                     major.setText(majorKey);
