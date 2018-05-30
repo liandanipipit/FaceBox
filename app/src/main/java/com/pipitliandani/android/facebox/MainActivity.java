@@ -37,8 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rViewmain = findViewById(R.id.rViewMain);
+        getSupportActionBar().setTitle("List of Employee");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
-        limit = mDatabase.limitToFirst(100).orderByKey();
+        limit = mDatabase.limitToFirst(10).orderByKey();
         limit.keepSynced(true);
         mDatabase.keepSynced(true);
         list = new ArrayList<>();
@@ -50,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.setLoadMore(new onLoadMore() {
             @Override
             public void LoadMore() {
-                Query query = mDatabase.orderByKey().startAt(currentID).limitToLast(10);
+                Query query = mDatabase.orderByKey().startAt(currentID).limitToFirst(10);
                 query.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        if (dataSnapshot.getKey().equals(currentID)) {
+                        if ( !dataSnapshot.getKey().equals(currentID)) {
                             FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                             currentID = dataSnapshot.getKey();
                             list.add(currentModel);

@@ -3,13 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.pipitliandani.android.facebox"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -36,6 +37,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
     implementation 'com.android.support:design:26.0.0-beta1'
 }
+
 
 
 

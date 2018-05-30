@@ -1,5 +1,7 @@
 package com.pipitliandani.android.facebox;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +12,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.security.Key;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,12 +28,18 @@ public class Profile extends AppCompatActivity {
     CircleImageView image;
     DatabaseReference databaseReference;
     private StorageReference mStorage;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        setTitle("Profile");
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.context = context;
+        Intent i = getIntent();
+        Long key = i.getLongExtra("key", 0);
+
         name = (TextView) findViewById(R.id.name);
         nik = (TextView) findViewById(R.id.nik);
         unit = (TextView) findViewById(R.id.unit);
@@ -40,10 +52,11 @@ public class Profile extends AppCompatActivity {
         phone = (TextView) findViewById(R.id.phone);
         image = (CircleImageView) findViewById(R.id.profileImage);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("data");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("employee");
+        Query query = databaseReference.orderByChild("id").equalTo(key);
 
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+       query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshoot : dataSnapshot.getChildren()){
@@ -59,6 +72,7 @@ public class Profile extends AppCompatActivity {
                     String eduLevelKey = detail.getEduLevel();
                     String majorKey = detail.getMajor();
                     String phoneKey = detail.getPhone();
+                    String imageUrl = detail.getImage_url();
 
                     name.setText(nameKey);
                     nik.setText(nikKey);
@@ -70,6 +84,8 @@ public class Profile extends AppCompatActivity {
                     eduLevel.setText(eduLevelKey);
                     major.setText(majorKey);
                     phone.setText(phoneKey);
+                    Picasso.with(context).load(imageUrl).placeholder(R.color.grey).error(R.mipmap.ic_launcher).into(image);
+
 
                 }
 

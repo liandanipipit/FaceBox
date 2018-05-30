@@ -5,24 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="8dp"
+    android:background="@color/grey"
     tools:context="com.pipitliandani.android.facebox.MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Daftar Nama Karyawan"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:textColor="@color/black"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rViewMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_margin="8dp"
         android:scrollbars="vertical"/>
 
 

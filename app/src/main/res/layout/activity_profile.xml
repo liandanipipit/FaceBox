@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/grey"
     tools:context="com.pipitliandani.android.facebox.Profile">
 
     <RelativeLayout
@@ -20,8 +21,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher_background"
-            app:civ_border_color="#fff"
+            app:srcCompat="@drawable/logoptlen"
+            app:civ_border_color="@color/white"
             app:civ_border_width="2dp" />
 
         <TextView

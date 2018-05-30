@@ -9,17 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" />
+        <activity android:name=".Profile"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".Birthday" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".InputData"></activity>
+        <activity android:name=".MainActivity"
+            android:parentActivityName=".Birthday"/>
+        <activity android:name=".InputData" />
+        <activity android:name=".navDrawer"
+            android:label="@string/title_activity_nav_drawer"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
