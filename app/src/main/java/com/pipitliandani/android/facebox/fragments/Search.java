@@ -55,10 +55,10 @@ public class Search extends Fragment implements SearchAdapter.SearchAdapterliste
     private static final String ARG_PARAM2 = "param2";
 
     private static final String URL = "https://facebox-89904.firebaseio.com/employee.json";
-    RecyclerView rViewSearch;
     private List<FaceBoxModel> modelList;
     private SearchAdapter searchAdapter;
     private SearchView searchView;
+    RecyclerView rViewSearch;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -164,7 +164,6 @@ public class Search extends Fragment implements SearchAdapter.SearchAdapterliste
         rViewSearch.setItemAnimator(new DefaultItemAnimator());
         rViewSearch.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST, 36));
         rViewSearch.setAdapter(searchAdapter);
-
         fetchList();
     }
 
@@ -193,29 +192,29 @@ public class Search extends Fragment implements SearchAdapter.SearchAdapterliste
         MySearchApplication.getmInstance().addToRequestQueue(request);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getActivity().getMenuInflater().inflate(R.menu.activity_navigation_drawer_drawer, menu);
-//        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
-//        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
-//        searchView.setSearchableInfo(searchManager
-//                .getSearchableInfo(getActivity().getComponentName()));
-//        searchView.setMaxWidth(Integer.MAX_VALUE);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                searchAdapter.getFilter().filter(query);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                searchAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.activity_navigation_drawer_drawer, menu);
+        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

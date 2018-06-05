@@ -20,7 +20,7 @@ public class MySearchApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mInstance.getApplicationContext();
+        mInstance = this;
     }
     public static synchronized MySearchApplication getmInstance(){
         return mInstance;

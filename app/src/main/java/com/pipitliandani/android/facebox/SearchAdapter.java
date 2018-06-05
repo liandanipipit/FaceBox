@@ -61,7 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             filteredList.add(row);
                         }
                     }
-                    SearchlistFiltered =filteredList;
+                    SearchlistFiltered = filteredList;
                 }
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = SearchlistFiltered;
