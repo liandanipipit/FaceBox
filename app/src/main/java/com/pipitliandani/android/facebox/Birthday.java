@@ -21,7 +21,7 @@ public class Birthday extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Birthday.this, MainActivity.class);
+                Intent intent = new Intent(Birthday.this, NavigationDrawer.class);
                 startActivity(intent);
             }
         });

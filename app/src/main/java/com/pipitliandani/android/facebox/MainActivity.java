@@ -36,11 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rViewmain = findViewById(R.id.rViewMain);
-        getSupportActionBar().setTitle("List of Employee");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
+//        getSupportActionBar().setTitle("List of Employee");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
         limit = mDatabase.limitToFirst(10).orderByKey();
         limit.keepSynced(true);

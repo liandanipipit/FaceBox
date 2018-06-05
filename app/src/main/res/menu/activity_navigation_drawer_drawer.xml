@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ListOfEmployee"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="List Of Employee" />
+        <item
+            android:id="@+id/birthdayFragment"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Birthday" />
+        <item
+            android:id="@+id/close_friends"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Close Friends" />
+        <item
+            android:id="@+id/search"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Search" />
+        <item
+            android:id="@+id/division"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Unit/Division" />
+        <item
+            android:id="@+id/management"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Management" />
+        <item
+            android:id="@+id/unitBisnis"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Unit Bussiness" />
+
+    </group>
+
+    <item android:title="Unit/Division">
+        <menu>
+            <item
+                android:id="@+id/divi"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

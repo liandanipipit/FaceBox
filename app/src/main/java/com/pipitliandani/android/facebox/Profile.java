@@ -27,7 +27,6 @@ public class Profile extends AppCompatActivity {
     functionTitle, email, placeOfBirth, eduLevel, major, phone, birthday;
     CircleImageView image;
     DatabaseReference databaseReference;
-    private StorageReference mStorage;
     Context context;
 
     @Override
