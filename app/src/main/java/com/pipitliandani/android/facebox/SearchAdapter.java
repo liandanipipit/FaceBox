@@ -1,12 +1,14 @@
 package com.pipitliandani.android.facebox;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -35,9 +37,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final FaceBoxModel faceBoxModel = SearchlistFiltered.get(position);
+        final long key = faceBoxModel.id;
         holder.name1.setText(faceBoxModel.getName());
         holder.unit1.setText(faceBoxModel.getUnit());
         Picasso.with(context).load(faceBoxModel.image_url).into(holder.photo);
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Profile.class);
+                intent.putExtra("key", key);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -52,12 +63,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String cons = constraint.toString();
-                if (cons.isEmpty()){
+                if (cons.isEmpty()) {
                     SearchlistFiltered = Searchlist;
                 } else {
                     List<FaceBoxModel> filteredList = new ArrayList<>();
-                    for (FaceBoxModel row : Searchlist){
-                        if (row.getName().toLowerCase().contains(cons.toLowerCase()) || row.getUnit().contains(constraint)){
+                    for (FaceBoxModel row : Searchlist) {
+                        if (row.getName().toLowerCase().contains(cons.toLowerCase()) || row.getUnit().contains(constraint)) {
                             filteredList.add(row);
                         }
                     }
@@ -80,11 +91,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name1, unit1;
         public CircleImageView photo;
+        public LinearLayout layout;
+
         public ViewHolder(View itemView) {
             super(itemView);
             name1 = itemView.findViewById(R.id.nameListItem);
             unit1 = itemView.findViewById(R.id.unitListItem);
             photo = itemView.findViewById(R.id.photo);
+            layout = itemView.findViewById(R.id.layoutItemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -93,12 +107,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             });
         }
     }
-    public SearchAdapter(Context context, List<FaceBoxModel> searchlist, SearchAdapterlistener adapterlistener){
+
+    public SearchAdapter(Context context, List<FaceBoxModel> searchlist, SearchAdapterlistener adapterlistener) {
         this.context = context;
         this.adapterlistener = adapterlistener;
         this.Searchlist = searchlist;
         this.SearchlistFiltered = searchlist;
     }
+
     public interface SearchAdapterlistener {
         void onSearchSelected(FaceBoxModel model);
     }

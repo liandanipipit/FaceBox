@@ -8,6 +8,102 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:565373805810:android:4fa9a04e5db052ad",
+        "android_client_info": {
+          "package_name": "com.example.ifr.faceboxme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565373805810-j0sregsosecmfqduejqu4h987tvdns6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ifr.faceboxme",
+            "certificate_hash": "fada20557e2bd320eefd4a8734b808fe8b2d2093"
+          }
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEY2Ugyt3YzC5XAX_5UXDfAJ8nQACPTZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565373805810:android:3eec38a2e709bb31",
+        "android_client_info": {
+          "package_name": "com.example.ifr.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565373805810-b3qmr9b7upmm39hg77k6j8hrc1ohg7s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ifr.firebasetest",
+            "certificate_hash": "fada20557e2bd320eefd4a8734b808fe8b2d2093"
+          }
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEY2Ugyt3YzC5XAX_5UXDfAJ8nQACPTZw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565373805810-8socpu8lpoedb25u4jiga4n170hhllaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:565373805810:android:ee38823bcf781cb6",
         "android_client_info": {
           "package_name": "com.pipitliandani.android.facebox"

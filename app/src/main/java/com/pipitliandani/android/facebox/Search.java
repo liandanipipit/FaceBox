@@ -20,12 +20,16 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -62,18 +66,21 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
         fetchList();
     }
     private void fetchList(){
-        JsonArrayRequest request = new JsonArrayRequest(URL,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(URL, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        if (response == null) {
-                            Toast.makeText(Search.this, "Couldn't fetch the contacts! Pleas try again.", Toast.LENGTH_LONG).show();
-                            return;
+                    public void onResponse(JSONObject response) {
+                        Iterator iterator = response.keys();
+                        while (iterator.hasNext()) {
+                            String key = (String)iterator.next();
+                            try {
+                                JSONObject object = response.getJSONObject(key);
+                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
+                                modelList.add(data);
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
                         }
-                        List<FaceBoxModel> items = new Gson().fromJson(response.toString(), new TypeToken<List<FaceBoxModel>>() {
-                        }.getType());
-                        modelList.clear();
-                        modelList.addAll(items);
                         searchAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {

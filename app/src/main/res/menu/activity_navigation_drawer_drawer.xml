@@ -6,45 +6,38 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/ListOfEmployee"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_list_black_24dp"
             android:title="List Of Employee" />
         <item
             android:id="@+id/birthdayFragment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/birthday"
             android:title="Birthday" />
         <item
             android:id="@+id/close_friends"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/groups"
             android:title="Close Friends" />
         <item
             android:id="@+id/search"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_search_black_24dp"
             android:title="Search" />
-        <item
-            android:id="@+id/division"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Unit/Division" />
-        <item
-            android:id="@+id/management"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Management" />
-        <item
-            android:id="@+id/unitBisnis"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Unit Bussiness" />
+
 
     </group>
 
     <item android:title="Unit/Division">
         <menu>
             <item
-                android:id="@+id/divi"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/division"
+                android:icon="@drawable/structure"
+                android:title="Unit/Division" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/management"
+                android:icon="@drawable/structure"
+                android:title="Management" />
+            <item
+                android:id="@+id/unitBisnis"
+                android:icon="@drawable/structure"
+                android:title="Unit Bussiness" />
         </menu>
     </item>
 
