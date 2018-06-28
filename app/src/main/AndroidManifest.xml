@@ -3,7 +3,6 @@
     package="com.pipitliandani.android.facebox">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".MySearchApplication"
         android:allowBackup="true"
@@ -12,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".BirthDayJob"
+            android:label="Birthday Service"
+           android:permission="android.permission.BIND_JOB_SERVICE">
+
+        </service>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -26,7 +30,7 @@
         </activity>
         <activity
             android:name=".Profile"
-            android:parentActivityName=".NavigationDrawer"/>
+            android:parentActivityName=".NavigationDrawer" />
         <activity android:name=".Birthday" />
         <activity
             android:name=".MainActivity"
@@ -41,7 +45,7 @@
         <activity
             android:name=".Search"
             android:parentActivityName=".NavigationDrawer"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

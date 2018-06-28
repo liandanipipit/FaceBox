@@ -6,11 +6,29 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.pipitliandani.android.facebox.FaceBoxModel;
+import com.pipitliandani.android.facebox.ListAdapter;
 import com.pipitliandani.android.facebox.R;
+import com.pipitliandani.android.facebox.onLoadMore;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +47,13 @@ public class BirthdayFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView rViewBirth;
+    DatabaseReference mDatabase;
+    Query limit;
+    ListAdapter adapter;
+    ArrayList<FaceBoxModel> list;
+    String currentID;
 
     private OnFragmentInteractionListener mListener;
 
@@ -112,7 +137,93 @@ public class BirthdayFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Birthday");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Happy Birthday");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
+        String date = new SimpleDateFormat("dd/MM", Locale.getDefault()).format(new Date());
+        limit = mDatabase.orderByChild("dateMonthBirth").equalTo(date);
+
+
+        limit.keepSynced(true);
+        mDatabase.keepSynced(true);
+        list = new ArrayList<>();
+
+        rViewBirth = (RecyclerView) getView().findViewById(R.id.rViewBirth);
+        rViewBirth.setHasFixedSize(true);
+        rViewBirth.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new ListAdapter(getContext(), list, rViewBirth);
+//        if(bundle == null) {
+            adapter.setLoadMore(new onLoadMore() {
+                @Override
+                public void LoadMore() {
+                    Query query = mDatabase.orderByKey().startAt(currentID).limitToFirst(10);
+                    query.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            if ( !dataSnapshot.getKey().equals(currentID)) {
+                                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
+                                currentID = dataSnapshot.getKey();
+                                list.add(currentModel);
+                                adapter.notifyDataSetChanged();
+                                adapter.setLoaded();
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
+//        }
+
+        rViewBirth.setAdapter(adapter);
+        limit.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
+                currentID = dataSnapshot.getKey();
+                list.add(currentModel);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
-}
+
+    }
+

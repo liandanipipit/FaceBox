@@ -16,15 +16,15 @@ public class Birthday extends AppCompatActivity {
         setContentView(R.layout.activity_brithday);
         setTitle("Home");
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Birthday.this, NavigationDrawer.class);
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Birthday.this, NavigationDrawer.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }
