@@ -38,6 +38,14 @@
                 android:id="@+id/unitBisnis"
                 android:icon="@drawable/structure"
                 android:title="Unit Bussiness" />
+            <item
+                android:id="@+id/subsidiaries"
+                android:icon="@drawable/structure"
+                android:title="Subsidiaries" />
+            <item
+                android:id="@+id/other"
+                android:icon="@drawable/structure"
+                android:title="Other" />
         </menu>
     </item>
 

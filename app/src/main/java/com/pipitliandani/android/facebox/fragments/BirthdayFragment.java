@@ -1,6 +1,9 @@
 package com.pipitliandani.android.facebox.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,8 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.pipitliandani.android.facebox.BirthdayAdapter;
 import com.pipitliandani.android.facebox.FaceBoxModel;
 import com.pipitliandani.android.facebox.ListAdapter;
+import com.pipitliandani.android.facebox.MyReceiver;
 import com.pipitliandani.android.facebox.R;
 import com.pipitliandani.android.facebox.onLoadMore;
 
@@ -51,7 +56,7 @@ public class BirthdayFragment extends Fragment {
     RecyclerView rViewBirth;
     DatabaseReference mDatabase;
     Query limit;
-    ListAdapter adapter;
+    BirthdayAdapter adapter;
     ArrayList<FaceBoxModel> list;
     String currentID;
 
@@ -151,7 +156,7 @@ public class BirthdayFragment extends Fragment {
         rViewBirth = (RecyclerView) getView().findViewById(R.id.rViewBirth);
         rViewBirth.setHasFixedSize(true);
         rViewBirth.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListAdapter(getContext(), list, rViewBirth);
+        adapter = new BirthdayAdapter(getContext(), list, rViewBirth);
 //        if(bundle == null) {
             adapter.setLoadMore(new onLoadMore() {
                 @Override
@@ -223,6 +228,7 @@ public class BirthdayFragment extends Fragment {
 
             }
         });
+
     }
 
     }

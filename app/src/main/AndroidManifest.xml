@@ -3,6 +3,13 @@
     package="com.pipitliandani.android.facebox">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".MySearchApplication"
         android:allowBackup="true"
@@ -11,11 +18,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".BirthDayJob"
-            android:label="Birthday Service"
-           android:permission="android.permission.BIND_JOB_SERVICE">
-
-        </service>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -46,6 +48,22 @@
             android:name=".Search"
             android:parentActivityName=".NavigationDrawer"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".MyNewIntentService"
+            android:exported="false" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register"></activity>
     </application>
 
 </manifest>

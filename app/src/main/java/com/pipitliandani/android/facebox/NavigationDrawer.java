@@ -1,5 +1,7 @@
 package com.pipitliandani.android.facebox;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -35,12 +37,15 @@ import com.pipitliandani.android.facebox.fragments.CloseFriends;
 import com.pipitliandani.android.facebox.fragments.Division;
 import com.pipitliandani.android.facebox.fragments.ListOfEmployee;
 import com.pipitliandani.android.facebox.fragments.ManagementFragment;
+import com.pipitliandani.android.facebox.fragments.OtherFragment;
 import com.pipitliandani.android.facebox.fragments.Search;
+import com.pipitliandani.android.facebox.fragments.Subsidiaries;
 import com.pipitliandani.android.facebox.fragments.UBFragment;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -50,7 +55,7 @@ public class NavigationDrawer extends AppCompatActivity
         CloseFriends.OnFragmentInteractionListener,Division.OnFragmentInteractionListener,
         Search.OnFragmentInteractionListener, ListOfEmployee.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener, ManagementFragment.OnFragmentInteractionListener,
-        UBFragment.OnFragmentInteractionListener{
+        UBFragment.OnFragmentInteractionListener, OtherFragment.OnFragmentInteractionListener, Subsidiaries.OnFragmentInteractionListener{
 
 
 
@@ -81,6 +86,16 @@ public class NavigationDrawer extends AppCompatActivity
 
         menuHandler(R.id.ListOfEmployee);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 39);
+
+        Intent notifyIntent = new Intent(this, MyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 3, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 2, pendingIntent);
+//        alarmManager.
 
     }
 
@@ -146,8 +161,14 @@ public class NavigationDrawer extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.division) {
             fragment = new Division();
+        } else if (id == R.id.management){
+            fragment = new ManagementFragment();
         } else if (id == R.id.unitBisnis){
             fragment = new UBFragment();
+        }else if (id == R.id.subsidiaries){
+            fragment = new Subsidiaries();
+        }else if (id == R.id.other){
+            fragment = new OtherFragment();
         }
 
         if (fragment != null) {

@@ -20,12 +20,12 @@ import com.pipitliandani.android.facebox.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ManagementFragment.OnFragmentInteractionListener} interface
+ * {@link Subsidiaries.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ManagementFragment#newInstance} factory method to
+ * Use the {@link Subsidiaries#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ManagementFragment extends Fragment {
+public class Subsidiaries extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +37,7 @@ public class ManagementFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ManagementFragment() {
+    public Subsidiaries() {
         // Required empty public constructor
     }
 
@@ -47,11 +47,11 @@ public class ManagementFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ManagementFragment.
+     * @return A new instance of fragment Subsidiaries.
      */
     // TODO: Rename and change types and number of parameters
-    public static ManagementFragment newInstance(String param1, String param2) {
-        ManagementFragment fragment = new ManagementFragment();
+    public static Subsidiaries newInstance(String param1, String param2) {
+        Subsidiaries fragment = new Subsidiaries();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,7 +72,7 @@ public class ManagementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_management, container, false);
+        return inflater.inflate(R.layout.fragment_subsidiaries, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -117,28 +117,27 @@ public class ManagementFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Management");
-        final String[] management = {"Dewan Komisaris", "Direksi PT Len Industri"};
-        final String[] key = {"Dewan Komisaris", "Direksi"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, management);
-        ListView listView = (ListView) getView().findViewById(R.id.listViewManagement);
-        listView.setAdapter(arrayAdapter);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Subsidiaries");
+        final String[] sub = {"PT. Eltran Indonesia", "PT. Len Railway Systems", "PT. Surya Energi Indotama", "PT. Len Telekomunikasi Indonesia"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, sub);
+        ListView listView = (ListView) getView().findViewById(R.id.listViewSub);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putString("UNIT_KEY", key[position]);
-
+                bundle.putString("UNIT_KEY", sub[position]);
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);
+
             }
         });
-}
-    public void replaceFragment(Fragment someFragment) {
+    }
+    public void replaceFragment(Fragment f){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, someFragment);
+        transaction.replace(R.id.flContent, f);
         transaction.addToBackStack(null);
         transaction.commit();
     }

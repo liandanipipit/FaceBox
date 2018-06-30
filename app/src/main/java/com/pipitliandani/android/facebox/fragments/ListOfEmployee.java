@@ -138,7 +138,11 @@ public class ListOfEmployee extends Fragment {
         limit = mDatabase.limitToFirst(10).orderByKey();
         Bundle bundle = this.getArguments();
         if (bundle != null){
-            limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
+            if(bundle.getString("UNIT_KEY") != null){
+                limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
+            } else {
+                limit = mDatabase.orderByChild(bundle.getString("NIK_KEY")).equalTo(true);
+            }
         }
 
 

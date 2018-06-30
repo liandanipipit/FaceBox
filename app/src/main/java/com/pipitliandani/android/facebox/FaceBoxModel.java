@@ -24,9 +24,14 @@ public class FaceBoxModel {
     public String workUnit;
     public Long id;
     public String dateMonthBirth;
+    public boolean retired, thl, kwl;
 
 
-    public FaceBoxModel(String birthDate, String coop, String eduLevel, String email, String functionTitle, String gender, String image_url, String limit, String major, String name, String nik, String officials, String pendionBudget, String phone, String placeOfBirth, String unit, String workUnit, Long id, String dateMonthBirth) {
+    public FaceBoxModel(String birthDate, String coop, String eduLevel, String email, String functionTitle,
+                        String gender, String image_url, String limit, String major, String name,
+                        String nik, String officials, String pendionBudget, String phone,
+                        String placeOfBirth, String unit, String workUnit, Long id, String dateMonthBirth,
+                        boolean retired, boolean thl, boolean kwl) {
         this.birthDate = birthDate;
         this.coop = coop;
         this.eduLevel = eduLevel;
@@ -203,5 +208,29 @@ public class FaceBoxModel {
 
     public void setDateMonthBirth(String dateMonthBirth) {
         this.dateMonthBirth = dateMonthBirth;
+    }
+
+    public boolean isRetired() {
+        return retired;
+    }
+
+    public void setRetired(boolean retired) {
+        this.retired = retired;
+    }
+
+    public boolean isThl() {
+        return thl;
+    }
+
+    public void setThl(boolean thl) {
+        this.thl = thl;
+    }
+
+    public boolean isKwl() {
+        return kwl;
+    }
+
+    public void setKwl(boolean kwl) {
+        this.kwl = kwl;
     }
 }
