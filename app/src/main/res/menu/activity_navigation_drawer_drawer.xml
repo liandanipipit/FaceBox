@@ -43,6 +43,10 @@
                 android:icon="@drawable/structure"
                 android:title="Subsidiaries" />
             <item
+                android:id="@+id/otherUnit"
+                android:icon="@drawable/structure"
+                android:title="Other Units" />
+            <item
                 android:id="@+id/other"
                 android:icon="@drawable/structure"
                 android:title="Other" />

@@ -123,6 +123,7 @@ public class Division extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Division");
+
         final String[] division = {"Asdir dan Komite", "Sekretaris Perusahaan",
                 "Satuan Pengawasan Internal", "Divisi Keuangan dan Akuntasi", "Divisi SDM dan Umum",
                 "Divisi Investasi dan Manajemen Resiko", "Divisi Pengembangan Bisnis dan Teknologi",
@@ -142,6 +143,7 @@ public class Division extends Fragment {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_KEY", key[position]);
+                bundle.putString("UNIT_NAME", division[position]);
 
                     fragment = new ListOfEmployee();
                     fragment.setArguments(bundle);

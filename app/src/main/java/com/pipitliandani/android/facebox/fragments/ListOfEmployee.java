@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.pipitliandani.android.facebox.FaceBoxModel;
+import com.pipitliandani.android.facebox.IKLAdapter;
 import com.pipitliandani.android.facebox.ListAdapter;
 import com.pipitliandani.android.facebox.R;
 import com.pipitliandani.android.facebox.onLoadMore;
@@ -46,6 +47,7 @@ public class ListOfEmployee extends Fragment {
     DatabaseReference mDatabase;
     Query limit;
     ListAdapter adapter;
+    IKLAdapter adapter2;
     ArrayList<FaceBoxModel> list;
     String currentID;
 
@@ -133,15 +135,36 @@ public class ListOfEmployee extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("List Of Employee");
+        Bundle bundle = this.getArguments();
+        String type = "unit";
+        if (bundle != null){
+            String title = bundle.getString("UNIT_NAME");
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+        } else {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("List Of Employee");
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
         limit = mDatabase.limitToFirst(10).orderByKey();
-        Bundle bundle = this.getArguments();
+
         if (bundle != null){
-            if(bundle.getString("UNIT_KEY") != null){
+            if (bundle.getBoolean("IS_ESELON")){
+                limit = mDatabase.orderByChild("officials").startAt(bundle.getString("UNIT_KEY"));
+            } else if(bundle.getString("FIELD_NAME") != null){
+                String value = bundle.getString("KEY_NAME");
+                String field = bundle.getString("FIELD_NAME");
+                if(value.equals("true")) {
+                    limit = mDatabase.orderByChild(field).equalTo(true);
+                } else {
+                    limit = mDatabase.orderByChild(field).equalTo(value);
+                }
+            }else if(bundle.getString("UNIT_KEY") != null){
                 limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
             } else {
-                limit = mDatabase.orderByChild(bundle.getString("NIK_KEY")).equalTo(true);
+                limit = mDatabase.orderByChild(bundle.getString("KEY")).equalTo(true);
+                if (bundle.getString("KEY") == "unit"){
+                    limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("KEY"));
+                }
             }
         }
 

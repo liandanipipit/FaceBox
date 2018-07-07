@@ -118,7 +118,7 @@ public class UBFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Unit Business");
         final String[] businessUnits = {"Elektronika Pertahanan", "Sistem Transportasi",
-                "Teknologi Informasi, Komunikasi dan Informasi", "Energi dan Produk Ritel"};
+                "Teknologi Informasi, Komunikasi dan Navigasi", "Energi dan Produk Ritel"};
         final String[] key = {"UB. Elhan", "UB. Sistem Transportasi",
                 "Unit Bisnis TIKN", "UB. Energi dan Produk Ritel"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, businessUnits);
@@ -130,6 +130,8 @@ public class UBFragment extends Fragment {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_KEY", key[position]);
+                bundle.putString("UNIT_NAME", businessUnits[position]);
+
 
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);

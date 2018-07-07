@@ -110,6 +110,8 @@ public class BirthdayFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        ((AppCompatActivity)getActivity()).setTitle("Happy Birthday");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -143,7 +145,6 @@ public class BirthdayFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Happy Birthday");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
         String date = new SimpleDateFormat("dd/MM", Locale.getDefault()).format(new Date());
         limit = mDatabase.orderByChild("dateMonthBirth").equalTo(date);
@@ -230,6 +231,7 @@ public class BirthdayFragment extends Fragment {
         });
 
     }
+
 
     }
 

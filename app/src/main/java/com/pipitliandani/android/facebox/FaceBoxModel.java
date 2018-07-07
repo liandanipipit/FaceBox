@@ -17,21 +17,22 @@ public class FaceBoxModel {
     public String name;
     public String nik;
     public String officials;
-    public String pendionBudget;
+    public String pensionBudget;
+    public String ikl;
     public String phone;
     public String placeOfBirth;
     public String unit;
     public String workUnit;
     public Long id;
     public String dateMonthBirth;
-    public boolean retired, thl, kwl;
+    public boolean retired, thl, kwl, isHaveCoop, isHaveIKL, isHavePensionBudget;
 
 
     public FaceBoxModel(String birthDate, String coop, String eduLevel, String email, String functionTitle,
                         String gender, String image_url, String limit, String major, String name,
-                        String nik, String officials, String pendionBudget, String phone,
+                        String nik, String officials, String pensionBudget, String phone,
                         String placeOfBirth, String unit, String workUnit, Long id, String dateMonthBirth,
-                        boolean retired, boolean thl, boolean kwl) {
+                        boolean retired, boolean thl, boolean kwl, String ikl, boolean isHaveCoop, boolean isHaveIKL, boolean isHavePensionBudget) {
         this.birthDate = birthDate;
         this.coop = coop;
         this.eduLevel = eduLevel;
@@ -44,13 +45,17 @@ public class FaceBoxModel {
         this.name = name;
         this.nik = nik;
         this.officials = officials;
-        this.pendionBudget = pendionBudget;
+        this.pensionBudget = pensionBudget;
         this.phone = phone;
         this.placeOfBirth = placeOfBirth;
         this.unit = unit;
         this.workUnit = workUnit;
         this.id = id;
         this.dateMonthBirth = dateMonthBirth;
+        this.ikl = ikl;
+        this.isHaveCoop = isHaveCoop;
+        this.isHaveIKL = isHaveIKL;
+        this.isHavePensionBudget = isHavePensionBudget;
 
     }
 
@@ -162,12 +167,12 @@ public class FaceBoxModel {
         this.officials = officials;
     }
 
-    public String getPendionBudget() {
-        return pendionBudget;
+    public String getPensionBudget() {
+        return pensionBudget;
     }
 
-    public void setPendionBudget(String pendionBudget) {
-        this.pendionBudget = pendionBudget;
+    public void setPensionBudget(String pensionBudget) {
+        this.pensionBudget = pensionBudget;
     }
 
     public String getPhone() {
@@ -232,5 +237,37 @@ public class FaceBoxModel {
 
     public void setKwl(boolean kwl) {
         this.kwl = kwl;
+    }
+
+    public String getIkl() {
+        return ikl;
+    }
+
+    public void setIkl(String ikl) {
+        this.ikl = ikl;
+    }
+
+    public boolean isHaveCoop() {
+        return isHaveCoop;
+    }
+
+    public void setHaveCoop(boolean haveCoop) {
+        isHaveCoop = haveCoop;
+    }
+
+    public boolean isHaveIKL() {
+        return isHaveIKL;
+    }
+
+    public void setHaveIKL(boolean haveIKL) {
+        isHaveIKL = haveIKL;
+    }
+
+    public boolean isHavePensionBudget() {
+        return isHavePensionBudget;
+    }
+
+    public void setHavePensionBudget(boolean havePensionBudget) {
+        isHavePensionBudget = havePensionBudget;
     }
 }

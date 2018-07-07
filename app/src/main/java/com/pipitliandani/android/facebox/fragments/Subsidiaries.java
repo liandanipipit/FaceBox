@@ -128,6 +128,7 @@ public class Subsidiaries extends Fragment {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_KEY", sub[position]);
+                bundle.putString("UNIT_NAME", sub[position]);
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);

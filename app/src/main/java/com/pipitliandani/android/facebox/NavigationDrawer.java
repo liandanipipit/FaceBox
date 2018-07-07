@@ -1,9 +1,12 @@
 package com.pipitliandani.android.facebox;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.support.v4.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -38,6 +41,7 @@ import com.pipitliandani.android.facebox.fragments.Division;
 import com.pipitliandani.android.facebox.fragments.ListOfEmployee;
 import com.pipitliandani.android.facebox.fragments.ManagementFragment;
 import com.pipitliandani.android.facebox.fragments.OtherFragment;
+import com.pipitliandani.android.facebox.fragments.OtherUnitFragment;
 import com.pipitliandani.android.facebox.fragments.Search;
 import com.pipitliandani.android.facebox.fragments.Subsidiaries;
 import com.pipitliandani.android.facebox.fragments.UBFragment;
@@ -55,7 +59,8 @@ public class NavigationDrawer extends AppCompatActivity
         CloseFriends.OnFragmentInteractionListener,Division.OnFragmentInteractionListener,
         Search.OnFragmentInteractionListener, ListOfEmployee.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener, ManagementFragment.OnFragmentInteractionListener,
-        UBFragment.OnFragmentInteractionListener, OtherFragment.OnFragmentInteractionListener, Subsidiaries.OnFragmentInteractionListener{
+        UBFragment.OnFragmentInteractionListener, OtherFragment.OnFragmentInteractionListener,
+        Subsidiaries.OnFragmentInteractionListener, OtherUnitFragment.OnFragmentInteractionListener {
 
 
 
@@ -84,18 +89,14 @@ public class NavigationDrawer extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        menuHandler(R.id.ListOfEmployee);
+        menuHandler(R.id.birthdayFragment);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 14);
         calendar.set(Calendar.MINUTE, 39);
 
-        Intent notifyIntent = new Intent(this, MyReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 3, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 2, pendingIntent);
-//        alarmManager.
+        NotificationScheduler.setReminder(getApplicationContext(), MyReceiver.class, 19, 57);
 
     }
 
@@ -103,18 +104,33 @@ public class NavigationDrawer extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        super.onBackPressed();
+        FragmentManager fm = getSupportFragmentManager();
+        Log.i("NavDrawer", "Back Pressed");
+        Log.i("NavDrawer", fm.getBackStackEntryCount()+"");
+        if (fm.getBackStackEntryCount() > 0) {
+            Log.i("NavDrawer", "Poping back stack");
+            fm.popBackStack();
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_warning_black_24dp)
+                    .setTitle("Close")
+                    .setMessage("Do you want to close this application?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_navigation_drawer_drawer, menu);
+        //getMenuInflater().inflate(R.menu.activity_navigation_drawer_drawer, menu);
         return true;
     }
 
@@ -169,11 +185,14 @@ public class NavigationDrawer extends AppCompatActivity
             fragment = new Subsidiaries();
         }else if (id == R.id.other){
             fragment = new OtherFragment();
+        }else if (id == R.id.otherUnit){
+            fragment = new OtherUnitFragment();
         }
 
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.flContent, fragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
     }

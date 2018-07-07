@@ -100,10 +100,10 @@ public class Profile extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
 
-
             }
         });
 
 
     }
+
 }

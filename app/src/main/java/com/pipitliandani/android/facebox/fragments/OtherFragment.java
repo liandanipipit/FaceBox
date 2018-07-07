@@ -116,8 +116,8 @@ public class OtherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Management");
-        final String[] other = {"Retired Employee", "KWT", "THL"};
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Other");
+        final String[] other = {"Retired Employed", "Karyawan Waktu Tertentu", "Tenaga Harian Lepas"};
         final String[] key = {"retired", "kwl", "thl"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, other);
         ListView listView = (ListView) getView().findViewById(R.id.listViewOther);
@@ -127,8 +127,8 @@ public class OtherFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putString("NIK_KEY", key[position]);
-
+                bundle.putString("KEY", key[position]);
+                bundle.putString("UNIT_NAME", other[position]);
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);
