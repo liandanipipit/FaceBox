@@ -119,8 +119,7 @@ public class OtherUnitFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("OtherUnits");
         final String[] otherUnits = {"Pengurus IKL 2016-2019", "KopKarLen", "Dana Pensiun Len Industri", "Pelayanan Kesehatan"};
-        final String[] field = {"isHaveIKL", "isHaveCoop", "isHavePensionBudget", "unit"};
-        final String[] key = {"true", "true", "true", "Pelayanan Kesehatan"};
+        final String[] key = {"isHaveIKL", "isHaveCoop", "isHavePensionBudget", "Pelayanan Kesehatan"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, otherUnits);
         ListView listView = (ListView)getView().findViewById(R.id.otherUnitFragment);
@@ -131,8 +130,7 @@ public class OtherUnitFragment extends Fragment {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_NAME", otherUnits[position]);
-                bundle.putString("FIELD_NAME", field[position]);
-                bundle.putString("KEY_NAME", key[position]);
+                bundle.putString("KEY", key[position]);
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);

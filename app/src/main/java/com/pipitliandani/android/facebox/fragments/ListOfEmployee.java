@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.pipitliandani.android.facebox.FaceBoxModel;
-import com.pipitliandani.android.facebox.IKLAdapter;
 import com.pipitliandani.android.facebox.ListAdapter;
 import com.pipitliandani.android.facebox.R;
 import com.pipitliandani.android.facebox.onLoadMore;
@@ -47,7 +46,6 @@ public class ListOfEmployee extends Fragment {
     DatabaseReference mDatabase;
     Query limit;
     ListAdapter adapter;
-    IKLAdapter adapter2;
     ArrayList<FaceBoxModel> list;
     String currentID;
 
@@ -150,19 +148,11 @@ public class ListOfEmployee extends Fragment {
         if (bundle != null){
             if (bundle.getBoolean("IS_ESELON")){
                 limit = mDatabase.orderByChild("officials").startAt(bundle.getString("UNIT_KEY"));
-            } else if(bundle.getString("FIELD_NAME") != null){
-                String value = bundle.getString("KEY_NAME");
-                String field = bundle.getString("FIELD_NAME");
-                if(value.equals("true")) {
-                    limit = mDatabase.orderByChild(field).equalTo(true);
-                } else {
-                    limit = mDatabase.orderByChild(field).equalTo(value);
-                }
-            }else if(bundle.getString("UNIT_KEY") != null){
+            } else if(bundle.getString("UNIT_KEY") != null){
                 limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
             } else {
                 limit = mDatabase.orderByChild(bundle.getString("KEY")).equalTo(true);
-                if (bundle.getString("KEY") == "unit"){
+                if (bundle.getString("KEY") == "Pelayanan Kesehatan"){
                     limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("KEY"));
                 }
             }
