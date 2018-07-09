@@ -7,5 +7,7 @@
     <color name="colorPrimaryDark">#323e64</color>
     <color name="white">#f4f5f7</color>
     <color name="softblue">#9ab1ff</color>
-    <color name="grey">#e5e7ec</color>
+    <color name="grey">#eaeaed</color>
+    <color name="blue">#6279c1</color>
+    <color name="orange">#e66621</color>
 </resources>

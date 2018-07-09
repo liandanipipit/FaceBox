@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,11 +125,11 @@ public class Division extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Division");
 
-        final String[] division = {"Asdir dan Komite", "Sekretaris Perusahaan",
+        final String[] division = {"Asdir", "Komite Perusahaan", "Sekretaris Perusahaan",
                 "Satuan Pengawasan Internal", "Divisi Keuangan dan Akuntasi", "Divisi SDM dan Umum",
                 "Divisi Investasi dan Manajemen Resiko", "Divisi Pengembangan Bisnis dan Teknologi",
                 "Divisi Produksi", "Divisi Logistik", "Divisi Manajemen Strategi dan Operasi"};
-        final String[] key = {"Asisten Direksi", "Sekretaris Perusahaan", "SPI", "Divisi Keuangan dan Akuntansi",
+        final String[] key = {"Asisten Direksi", "Komite", "Sekretaris Perusahaan", "SPI", "Divisi Keuangan dan Akuntansi",
                 "Div. SDM dan Umum", "Div. Investasi dan Manaj. Resiko", "Divisi BangBisTek",
         "Divisi Produksi", "Divisi Logistik", "Div. Manaj. Strategi dan Operasi"};
 //        ArrayList<String> divisionList = new ArrayList<String>();
@@ -142,8 +143,13 @@ public class Division extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putString("UNIT_KEY", key[position]);
                 bundle.putString("UNIT_NAME", division[position]);
+                if (position != 0 && position != 1){
+                    bundle.putString("UNIT_KEY", key[position]);
+                } else {
+                    Log.d("ASKOM", key[position]);
+                    bundle.putString("AsKom_KEY", key[position]);
+                }
 
                     fragment = new ListOfEmployee();
                     fragment.setArguments(bundle);

@@ -130,10 +130,20 @@ public class OtherUnitFragment extends Fragment {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_NAME", otherUnits[position]);
-                bundle.putString("KEY", key[position]);
-                fragment = new ListOfEmployee();
-                fragment.setArguments(bundle);
-                replaceFragment(fragment);
+
+                if (position != 0 && position != 2){
+                    bundle.putString("KEY", key[position]);
+                    fragment = new ListOfEmployee();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+                } else {
+                    bundle.putString("KEY", key[position]);
+                    String[] type = {"IKL", "", "Dapen", ""};
+                    bundle.putString("TYPE", type[position]);
+                    fragment = new ListOfEmployeeOtherUnits();
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+                }
             }
         });
     }

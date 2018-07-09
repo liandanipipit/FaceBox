@@ -22,7 +22,7 @@ public class MyNewIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Today is your friends birthday");
+        builder.setContentTitle("Today is your friends birthday_icon");
         builder.setContentText("Tap to see it");
         builder.setSmallIcon(R.drawable.logoptlen);
         Intent notifyIntent = new Intent(this, NavigationDrawer.class);

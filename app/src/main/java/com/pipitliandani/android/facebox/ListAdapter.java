@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,7 +33,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
     private int LastVisibleItem, TotalItemCount;
     private boolean loading;
     private com.pipitliandani.android.facebox.onLoadMore LoadListener;
-
 
     public ListAdapter(Context context, List<FaceBoxModel> list, RecyclerView recyclerView){
         this.cntx = context;
@@ -79,6 +79,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
             final FaceBoxModel currentModel = list.get(position);
             final Long key = currentModel.id;
 //            final String k = key.toString();
+            if(!currentModel.isHead) {
+                holder.star.setVisibility(View.GONE);
+            }
             holder.name.setText(currentModel.name);
             holder.unit.setText(currentModel.unit);
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);
@@ -114,6 +117,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
         TextView name, unit;
         CircleImageView photo;
         LinearLayout layout;
+        ImageView star;
 
         public FaceViewHolder(View itemView) {
             super(itemView);
@@ -121,6 +125,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
             unit = itemView.findViewById(R.id.unitListItem);
             photo = itemView.findViewById(R.id.photo);
             layout = itemView.findViewById(R.id.layoutItemView);
+            star = itemView.findViewById(R.id.star);
 
         }
     }

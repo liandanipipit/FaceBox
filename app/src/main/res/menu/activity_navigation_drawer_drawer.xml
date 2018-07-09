@@ -10,7 +10,7 @@
             android:title="List Of Employee" />
         <item
             android:id="@+id/birthdayFragment"
-            android:icon="@drawable/birthday"
+            android:icon="@drawable/birthday_icon"
             android:title="Birthday" />
         <item
             android:id="@+id/close_friends"

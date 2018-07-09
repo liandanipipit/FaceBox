@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context="com.pipitliandani.android.facebox.fragments.ListOfEmployee">
+    tools:context="com.pipitliandani.android.facebox.fragments.ListOfEmployeeOtherUnits">
 
+    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
         android:padding="5dp">
         <TextView
-            android:id="@+id/total"
+            android:id="@+id/totalOtherUnits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total : "
@@ -35,18 +36,10 @@
             android:textStyle="bold"
             android:textSize="15dp"/>
     </LinearLayout>
-    <LinearLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rViewOtherUnits"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rViewMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:scrollbars="vertical"/>
-
-    </LinearLayout>
-
-
-
+        android:layout_margin="8dp"
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -25,14 +25,15 @@ public class FaceBoxModel {
     public String workUnit;
     public Long id;
     public String dateMonthBirth;
-    public boolean retired, thl, kwl, isHaveCoop, isHaveIKL, isHavePensionBudget;
+    public boolean retired, thl, kwl, isHaveCoop, isHaveIKL, isHavePensionBudget, isHead;
 
 
     public FaceBoxModel(String birthDate, String coop, String eduLevel, String email, String functionTitle,
                         String gender, String image_url, String limit, String major, String name,
                         String nik, String officials, String pensionBudget, String phone,
                         String placeOfBirth, String unit, String workUnit, Long id, String dateMonthBirth,
-                        boolean retired, boolean thl, boolean kwl, String ikl, boolean isHaveCoop, boolean isHaveIKL, boolean isHavePensionBudget) {
+                        boolean retired, boolean thl, boolean kwl, String ikl, boolean isHaveCoop, boolean isHaveIKL,
+                        boolean isHavePensionBudget, boolean isHead) {
         this.birthDate = birthDate;
         this.coop = coop;
         this.eduLevel = eduLevel;
@@ -56,6 +57,7 @@ public class FaceBoxModel {
         this.isHaveCoop = isHaveCoop;
         this.isHaveIKL = isHaveIKL;
         this.isHavePensionBudget = isHavePensionBudget;
+        this.isHead = isHead;
 
     }
 
@@ -269,5 +271,13 @@ public class FaceBoxModel {
 
     public void setHavePensionBudget(boolean havePensionBudget) {
         isHavePensionBudget = havePensionBudget;
+    }
+
+    public boolean isHead() {
+        return isHead;
+    }
+
+    public void setHead(boolean head) {
+        isHead = head;
     }
 }

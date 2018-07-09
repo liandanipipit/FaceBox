@@ -21,7 +21,7 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
         Log.d(TAG, "Receive");
-        NotificationScheduler.showNotification(context, NavigationDrawer.class, "It's your friend birthday", "Tap to open");
+        NotificationScheduler.showNotification(context, NavigationDrawer.class, "It's your friend birthday_icon", "Tap to open");
 
     }
 }

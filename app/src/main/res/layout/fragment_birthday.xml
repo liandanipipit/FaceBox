@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context="com.pipitliandani.android.facebox.fragments.BirthdayFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView4" />
+            android:layout_margin="8dp"/>
     </RelativeLayout>
 
     <!--<android.support.design.widget.FloatingActionButton-->

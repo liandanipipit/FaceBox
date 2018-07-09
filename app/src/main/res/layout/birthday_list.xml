@@ -15,14 +15,26 @@
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/photoBirthdayItem"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="2dp"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="1.5dp"
-                />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/photoBirthdayItem"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:padding="2dp"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1.5dp"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/birthday"
+                    android:layout_gravity="bottom|end"/>
+            </FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,34 +56,21 @@
                     android:id="@+id/unitBirthdayItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Divisi"
-                    android:textStyle="bold"
                     android:layout_marginTop="3dp"
-                    android:textSize="15dp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/birthday"/>
+                    android:textSize="16dp"/>
 
                     <TextView
                         android:id="@+id/hbd"
-                        android:layout_marginLeft="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Happy Birthday"
-                        android:textStyle="bold"
+                        android:text="Happy Birthday !!!"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold|italic"
                         android:layout_marginTop="3dp"
                         android:textSize="15dp"/>
 
-                </LinearLayout>
 
             </LinearLayout>
 
