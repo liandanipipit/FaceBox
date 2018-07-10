@@ -33,9 +33,9 @@
                     android:layout_height="20dp"
                     android:adjustViewBounds="true"
                     android:id="@+id/starIKL"
-                    app:srcCompat="@drawable/best"
+                    app:srcCompat="@drawable/best2"
                     android:layout_alignParentRight="true"
-                    android:layout_gravity="bottom|end"/>
+                    android:layout_gravity="bottom"/>
             </FrameLayout>
 
             <LinearLayout

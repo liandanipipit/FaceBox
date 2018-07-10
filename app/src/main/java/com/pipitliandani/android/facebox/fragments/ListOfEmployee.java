@@ -140,6 +140,7 @@ public class ListOfEmployee extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
+        String key = "";
         if (bundle != null){
             String title = bundle.getString("UNIT_NAME");
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
@@ -151,11 +152,13 @@ public class ListOfEmployee extends Fragment {
 
         if (bundle != null){
             if (bundle.getBoolean("IS_ESELON")){
-                limit = mDatabase.orderByChild("officials").startAt(bundle.getString("UNIT_KEY"));
+                key = bundle.getString("UNIT_KEY");
+                limit = mDatabase.orderByChild("officials").startAt(key).endAt(key + "\uf8ff");
             } else if(bundle.getString("UNIT_KEY") != null){
                 limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
             } else if (bundle.getString("AsKom_KEY") != null) {
-                limit = mDatabase.orderByChild("workUnit").startAt(bundle.getString("AsKom_KEY"));
+                key = bundle.getString("AsKom_KEY");
+                limit = mDatabase.orderByChild("workUnit").startAt(key).endAt(key + "\uf8ff");
             }else {
                 limit = mDatabase.orderByChild(bundle.getString("KEY")).equalTo(true);
                 if (bundle.getString("KEY") == "Pelayanan Kesehatan"){

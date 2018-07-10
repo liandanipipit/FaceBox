@@ -91,7 +91,9 @@ public class NavigationDrawer extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        menuHandler(R.id.birthdayFragment);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.flContent, new BirthdayFragment());
+        fragmentTransaction.commit();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -106,7 +108,7 @@ public class NavigationDrawer extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
         FragmentManager fm = getSupportFragmentManager();
         Log.i("NavDrawer", "Back Pressed");
         Log.i("NavDrawer", fm.getBackStackEntryCount()+"");

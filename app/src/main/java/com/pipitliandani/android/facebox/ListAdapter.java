@@ -79,12 +79,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
             final FaceBoxModel currentModel = list.get(position);
             final Long key = currentModel.id;
 //            final String k = key.toString();
-            if(!currentModel.isHead) {
-                holder.star.setVisibility(View.GONE);
-            }
+
             holder.name.setText(currentModel.name);
             holder.unit.setText(currentModel.unit);
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);
+            if(!currentModel.isHead) {
+                holder.star.setVisibility(View.GONE);
+            }
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
