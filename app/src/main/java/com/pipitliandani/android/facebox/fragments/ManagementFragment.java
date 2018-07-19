@@ -119,7 +119,8 @@ public class ManagementFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Management");
         final String[] management = {"Dewan Komisaris", "Direksi PT Len Industri", "Eselon I", "Eselon II", "Direksi Anak Perusahaan"};
-        final String[] key = {"Dewan Komisaris", "Direksi", "Eselon I", "Eselon II", "Direksi"};
+        final String[] key = {"Dewan Komisaris", "Direksi", "Eselon I", "Eselon II", "Direksi Anak Perusahaan"};
+        final Boolean[] eselon = {false, false, true, true, true};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, management);
         ListView listView = (ListView) getView().findViewById(R.id.listViewManagement);
         listView.setAdapter(arrayAdapter);
@@ -130,7 +131,7 @@ public class ManagementFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("UNIT_KEY", key[position]);
                 bundle.putString("UNIT_NAME", management[position]);
-                bundle.putBoolean("IS_ESELON", (position > 1));
+                bundle.putBoolean("IS_ESELON", eselon[position]);
                 fragment = new ListOfEmployee();
                 fragment.setArguments(bundle);
                 replaceFragment(fragment);

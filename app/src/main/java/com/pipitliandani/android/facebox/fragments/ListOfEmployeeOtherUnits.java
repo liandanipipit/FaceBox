@@ -141,14 +141,14 @@ public class ListOfEmployeeOtherUnits extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
         String title = bundle.getString("UNIT_NAME");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+        String field = bundle.getString("KEY");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(title);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
-        limit = mDatabase.orderByChild(bundle.getString("KEY")).equalTo(true);
+        limit = mDatabase.orderByChild(field).equalTo(true);
         calculateTotal(limit);
 
-
-        limit.keepSynced(true);
         mDatabase.keepSynced(true);
+        limit.keepSynced(true);
         list = new ArrayList<>();
 
         rViewOtherUnits = (RecyclerView) getView().findViewById(R.id.rViewOtherUnits);
@@ -159,13 +159,14 @@ public class ListOfEmployeeOtherUnits extends Fragment {
         adapter.setLoadMore(new onLoadMore() {
             @Override
             public void LoadMore() {
-                Query query = mDatabase.orderByKey().startAt(currentID).limitToFirst(10);
+                Query query = limit.orderByKey().startAt(currentID);
                 query.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        if ( !dataSnapshot.getKey().equals(currentID)) {
+                        if (!dataSnapshot.getKey().equals(currentID)) {
                             FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                             currentID = dataSnapshot.getKey();
+                            currentModel.setKey(currentID);
                             list.add(currentModel);
                             adapter.notifyDataSetChanged();
                             adapter.setLoaded();
@@ -202,6 +203,7 @@ public class ListOfEmployeeOtherUnits extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                 currentID = dataSnapshot.getKey();
+                currentModel.setKey(currentID);
                 list.add(currentModel);
                 adapter.notifyDataSetChanged();
             }
@@ -227,14 +229,15 @@ public class ListOfEmployeeOtherUnits extends Fragment {
             }
         });
     }
-    public void calculateTotal(Query limit) {
-        final TextView totalNumber = (TextView)getView().findViewById(R.id.totalNumber);
 
-        if(limit == null){
+    public void calculateTotal(Query limit) {
+        final TextView totalNumber = (TextView) getView().findViewById(R.id.totalNumber);
+
+        if (limit == null) {
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    totalNumber.setText(dataSnapshot.getChildrenCount()+"");
+                    totalNumber.setText(dataSnapshot.getChildrenCount() + "");
                 }
 
                 @Override
@@ -246,7 +249,7 @@ public class ListOfEmployeeOtherUnits extends Fragment {
             limit.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    totalNumber.setText(dataSnapshot.getChildrenCount()+"");
+                    totalNumber.setText(dataSnapshot.getChildrenCount() + "");
                 }
 
                 @Override

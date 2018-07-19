@@ -2,6 +2,9 @@ package com.pipitliandani.android.facebox;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
@@ -33,8 +36,12 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.pipitliandani.android.facebox.fragments.Administrator;
 import com.pipitliandani.android.facebox.fragments.BirthdayFragment;
 import com.pipitliandani.android.facebox.fragments.CloseFriends;
 import com.pipitliandani.android.facebox.fragments.Division;
@@ -62,25 +69,26 @@ public class NavigationDrawer extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener, ManagementFragment.OnFragmentInteractionListener,
         UBFragment.OnFragmentInteractionListener, OtherFragment.OnFragmentInteractionListener,
         Subsidiaries.OnFragmentInteractionListener, OtherUnitFragment.OnFragmentInteractionListener,
-        ListOfEmployeeOtherUnits.OnFragmentInteractionListener {
+        ListOfEmployeeOtherUnits.OnFragmentInteractionListener , Administrator.OnFragmentInteractionListener{
 
-
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        auth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NavigationDrawer.this, com.pipitliandani.android.facebox.Search.class);
+                startActivity(i);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,8 +96,30 @@ public class NavigationDrawer extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+//        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                Menu nav_menu = navigationView.getMenu();
+//                if (firebaseAuth != null){
+//                    nav_menu.findItem(R.id.Login).setVisible(false);
+//                } else {
+//                    nav_menu.findItem(R.id.Logout).setVisible(false);
+//                    nav_menu.findItem(R.id.admin).setVisible(false);
+//                    nav_menu.findItem(R.id.Login).setVisible(true);
+//                }
+//            }
+//        });
+        Menu nav_menu = navigationView.getMenu();
+        if(auth.getCurrentUser() != null) {
+            nav_menu.findItem(R.id.Login).setVisible(false);
+        } else {
+            nav_menu.findItem(R.id.Logout).setVisible(false);
+            nav_menu.findItem(R.id.admin).setVisible(false);
+            nav_menu.findItem(R.id.Login).setVisible(true);
+        }
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flContent, new BirthdayFragment());
@@ -97,10 +127,12 @@ public class NavigationDrawer extends AppCompatActivity
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 39);
+        calendar.set(Calendar.HOUR_OF_DAY, 05);
+        calendar.set(Calendar.MINUTE, 00);
 
-        NotificationScheduler.setReminder(getApplicationContext(), MyReceiver.class, 19, 57);
+        NotificationScheduler.setReminder(getApplicationContext(), MyReceiver.class, 05, 00);
+
+
 
     }
 
@@ -117,7 +149,6 @@ public class NavigationDrawer extends AppCompatActivity
             fm.popBackStack();
         } else {
             new AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_warning_black_24dp)
                     .setTitle("Close")
                     .setMessage("Do you want to close this application?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -174,8 +205,6 @@ public class NavigationDrawer extends AppCompatActivity
             fragment = new ListOfEmployee();
         } else if (id == R.id.birthdayFragment) {
             fragment = new BirthdayFragment();
-        } else if (id == R.id.close_friends) {
-            fragment = new CloseFriends();
         } else if (id == R.id.search) {
             Intent intent = new Intent(this, com.pipitliandani.android.facebox.Search.class);
             startActivity(intent);
@@ -191,6 +220,20 @@ public class NavigationDrawer extends AppCompatActivity
             fragment = new OtherFragment();
         }else if (id == R.id.otherUnit){
             fragment = new OtherUnitFragment();
+        }else if (id == R.id.Login){
+            finish();
+            Intent in = new Intent(this, LoginActivity.class);
+            in.setFlags(in.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(in);
+        }else if (id == R.id.Logout){
+            auth.signOut();
+            finish();
+            Intent i = getIntent();
+            i.setFlags(i.getFlags()| Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(i);
+        }else if (id == R.id.admin){
+            fragment = new Administrator();
+
         }
 
         if (fragment != null) {

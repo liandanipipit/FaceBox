@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pipitliandani.android.facebox.InputData">
-
+    tools:context="com.pipitliandani.android.facebox.EditData">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Employee"
+        android:text="Edit Data"
         android:textSize="20dp"
         android:layout_marginTop="3dp"
         android:gravity="center_horizontal"
@@ -44,7 +43,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputNIK"/>
+                    android:id="@+id/editNIK"/>
 
             </LinearLayout>
             <LinearLayout
@@ -65,7 +64,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputNama"/>
+                    android:id="@+id/editNama"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,14 +84,14 @@
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rg">
+                    android:id="@+id/editrg">
                     <RadioButton
-                        android:id="@+id/radioMale"
+                        android:id="@+id/editradioMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male"/>
                     <RadioButton
-                        android:id="@+id/radioFemale"
+                        android:id="@+id/editradioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Female"/>
@@ -118,7 +117,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/unitSpinner"
+                    android:id="@+id/editunitSpinner"
                     android:spinnerMode="dropdown">
 
                 </Spinner>
@@ -166,7 +165,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/officialSpinner"
+                    android:id="@+id/editofficialSpinner"
                     android:spinnerMode="dropdown">
 
                 </Spinner>
@@ -189,7 +188,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputFunctiontitle"/>
+                    android:id="@+id/editFunctiontitle"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,7 +208,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputEmail"/>
+                    android:id="@+id/editEmail"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,7 +228,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputBirthday"
+                    android:id="@+id/editBirthday"
                     android:clickable="true"
                     android:focusable="false"
                     android:hint="--Choose Birthday--"/>
@@ -252,7 +251,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputPlaceofbirth"/>
+                    android:id="@+id/editPlaceofbirth"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -272,7 +271,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputEduLevel"/>
+                    android:id="@+id/editEduLevel"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -293,7 +292,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputMajor"/>
+                    android:id="@+id/editMajor"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -313,7 +312,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputPhone"/>
+                    android:id="@+id/editPhone"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -333,7 +332,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputPengurusIKL"
+                    android:id="@+id/editPengurusIKL"
                     android:hint="Jika tidak ada maka isi dengan '-'"/>
             </LinearLayout>
             <LinearLayout
@@ -354,7 +353,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/inputDapen"
+                    android:id="@+id/editDapen"
                     android:hint="Jika tidak ada maka isi dengan '-'"/>
             </LinearLayout>
             <LinearLayout
@@ -376,7 +375,7 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/typeSpinner"
+                    android:id="@+id/edittypeSpinner"
                     android:spinnerMode="dropdown"
                     android:layout_gravity="center_horizontal">
 
@@ -401,18 +400,18 @@
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/head">
+                    android:id="@+id/edithead">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <RadioButton
-                            android:id="@+id/radioYes"
+                            android:id="@+id/editradioYes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Yes"/>
                         <RadioButton
-                            android:id="@+id/radioNo"
+                            android:id="@+id/editradioNo"
                             android:layout_marginLeft="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -446,14 +445,14 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginLeft="3dp"
-                        android:id="@+id/inputimage"/>
+                        android:id="@+id/editimage"/>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Choose"
                         android:layout_marginTop="5dp"
                         android:layout_gravity="center"
-                        android:id="@+id/btnChoose"/>
+                        android:id="@+id/editbtnChoose"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -465,7 +464,8 @@
                 android:layout_margin="9dp"
                 android:background="@color/colorAccent"
                 android:textColor="@color/white"
-                android:id="@+id/btnSave"/>
+                android:id="@+id/btnEdit"/>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

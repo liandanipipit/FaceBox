@@ -5,6 +5,7 @@ package com.pipitliandani.android.facebox;
  */
 
 public class FaceBoxModel {
+    public String key;
     public String birthDate;
     public String coop;
     public String eduLevel;
@@ -28,12 +29,13 @@ public class FaceBoxModel {
     public boolean retired, thl, kwl, isHaveCoop, isHaveIKL, isHavePensionBudget, isHead;
 
 
-    public FaceBoxModel(String birthDate, String coop, String eduLevel, String email, String functionTitle,
+    public FaceBoxModel(String key, String birthDate, String coop, String eduLevel, String email, String functionTitle,
                         String gender, String image_url, String limit, String major, String name,
                         String nik, String officials, String pensionBudget, String phone,
                         String placeOfBirth, String unit, String workUnit, Long id, String dateMonthBirth,
                         boolean retired, boolean thl, boolean kwl, String ikl, boolean isHaveCoop, boolean isHaveIKL,
                         boolean isHavePensionBudget, boolean isHead) {
+        this.key = key;
         this.birthDate = birthDate;
         this.coop = coop;
         this.eduLevel = eduLevel;
@@ -67,6 +69,14 @@ public class FaceBoxModel {
 
     public Long getId() {
         return id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public void setId(Long id) {

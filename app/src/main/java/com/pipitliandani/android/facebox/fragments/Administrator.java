@@ -1,11 +1,11 @@
 package com.pipitliandani.android.facebox.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -15,18 +15,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.pipitliandani.android.facebox.ListAdapter;
+import com.pipitliandani.android.facebox.InputData;
 import com.pipitliandani.android.facebox.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OtherUnitFragment.OnFragmentInteractionListener} interface
+ * {@link Administrator.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OtherUnitFragment#newInstance} factory method to
+ * Use the {@link Administrator#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OtherUnitFragment extends Fragment {
+public class Administrator extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,7 +38,7 @@ public class OtherUnitFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public OtherUnitFragment() {
+    public Administrator() {
         // Required empty public constructor
     }
 
@@ -48,11 +48,11 @@ public class OtherUnitFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OtherUnitFragment.
+     * @return A new instance of fragment Administrator.
      */
     // TODO: Rename and change types and number of parameters
-    public static OtherUnitFragment newInstance(String param1, String param2) {
-        OtherUnitFragment fragment = new OtherUnitFragment();
+    public static Administrator newInstance(String param1, String param2) {
+        Administrator fragment = new Administrator();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,7 +73,7 @@ public class OtherUnitFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other_unit, container, false);
+        return inflater.inflate(R.layout.fragment_administrator, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -117,37 +117,34 @@ public class OtherUnitFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("OtherUnits");
-        final String[] otherUnits = {"Pengurus IKL 2016-2019", "KopKarLen", "Dana Pensiun Len Industri", "Pelayanan Kesehatan"};
-        final String[] field = {"isHaveIKL", "isHaveCoop", "isHavePensionBudget", "Pelayanan Kesehatan"};
-        final String[] type = {"IKL", "", "Dapen", ""};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, otherUnits);
-        ListView listView = (ListView)getView().findViewById(R.id.otherUnitFragment);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Administrator");
+        final String[] menu = {"Input New Employee's Data"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, menu);
+        ListView lv = getView().findViewById(R.id.administrator);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putString("UNIT_NAME", otherUnits[position]);
-
-                if (position != 0 && position != 2){
-                    bundle.putString("KEY", field[position]);
+                if (position ==0 ){
+                    Intent intent = new Intent(getActivity(), InputData.class);
+                    startActivity(intent);
+                } else if (position == 1){
                     fragment = new ListOfEmployee();
-                } else {
-                    bundle.putString("KEY", field[position]);
-                    bundle.putString("TYPE", type[position]);
-                    fragment = new ListOfEmployeeOtherUnits();
+                    bundle.putString("UNIT_NAME", menu[position]);
+                    fragment.setArguments(bundle);
+                    replaceFragment(fragment);
+
                 }
-                fragment.setArguments(bundle);
-                replaceFragment(fragment);
             }
+
         });
+
     }
-    public void replaceFragment(Fragment someFragment){
+    public void replaceFragment(Fragment f){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, someFragment);
+        transaction.replace(R.id.flContent, f);
         transaction.addToBackStack(null);
         transaction.commit();
     }

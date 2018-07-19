@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -37,10 +39,36 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final FaceBoxModel faceBoxModel = SearchlistFiltered.get(position);
-        final long key = faceBoxModel.id;
+        final String key = faceBoxModel.getKey();
         holder.name1.setText(faceBoxModel.getName());
         holder.unit1.setText(faceBoxModel.getUnit());
         Picasso.with(context).load(faceBoxModel.image_url).into(holder.photo);
+        if (faceBoxModel.workUnit.equals("Dewan Komisaris")){
+            holder.star1.setVisibility(View.VISIBLE);
+            holder.star2.setVisibility(View.VISIBLE);
+            holder.star3.setVisibility(View.VISIBLE);
+        }else if (faceBoxModel.officials.equals("Eselon I")){
+            holder.star1.setVisibility(View.VISIBLE);
+            holder.star2.setVisibility(View.VISIBLE);
+            holder.star3.setVisibility(View.INVISIBLE);
+        }else if (faceBoxModel.officials.equals("Eselon II")){
+            holder.star1.setVisibility(View.VISIBLE);
+            holder.star2.setVisibility(View.INVISIBLE);
+            holder.star3.setVisibility(View.INVISIBLE);
+        }else if (faceBoxModel.isHead){
+            holder.star1.setVisibility(View.VISIBLE);
+            holder.star2.setVisibility(View.INVISIBLE);
+            holder.star3.setVisibility(View.INVISIBLE);
+        } else {
+            holder.star1.setVisibility(View.INVISIBLE);
+            holder.star2.setVisibility(View.INVISIBLE);
+            holder.star3.setVisibility(View.INVISIBLE);
+        }
+//        if(!faceBoxModel.isHead) {
+//            holder.star1.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.star1.setVisibility(View.VISIBLE);
+//        }
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,9 +96,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 } else {
                     List<FaceBoxModel> filteredList = new ArrayList<>();
                     for (FaceBoxModel row : Searchlist) {
-                        if (row.getName().toLowerCase().contains(cons.toLowerCase()) || row.getUnit().contains(constraint)) {
+                        if (row.getName().toLowerCase().contains(cons.toLowerCase()) ||
+                                row.getUnit().toLowerCase().contains(cons.toLowerCase()) ||
+                                row.getPlaceOfBirth().toLowerCase().contains(cons.toLowerCase()) ||
+                                row.getEduLevel().toLowerCase().contains(cons.toLowerCase()) ||
+                                row.getMajor().toLowerCase().contains(cons.toLowerCase()) ||
+                                row.getFunctionTitle().toLowerCase().contains(cons)) {
                             filteredList.add(row);
                         }
+                    }
+                    if(filteredList.size() == 0){
+                        Toast.makeText(context, cons + " tidak ditemukan", Toast.LENGTH_SHORT).show();
                     }
                     SearchlistFiltered = filteredList;
                 }
@@ -92,6 +128,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public TextView name1, unit1;
         public CircleImageView photo;
         public LinearLayout layout;
+        ImageView star1, star2,star3;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -99,6 +136,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             unit1 = itemView.findViewById(R.id.unitListItem);
             photo = itemView.findViewById(R.id.photo);
             layout = itemView.findViewById(R.id.layoutItemView);
+            star1 = itemView.findViewById(R.id.star1);
+            star2 = itemView.findViewById(R.id.star2);
+            star3 = itemView.findViewById(R.id.star3);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

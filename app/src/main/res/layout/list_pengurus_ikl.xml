@@ -16,10 +16,10 @@
             android:layout_margin="8dp"
             android:orientation="horizontal">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical">
+                android:orientation="vertical">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/photoIKL"
                     android:layout_width="60dp"
@@ -28,15 +28,35 @@
                     app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="1.5dp"
                     />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:adjustViewBounds="true"
-                    android:id="@+id/starIKL"
-                    app:srcCompat="@drawable/best2"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="bottom"/>
-            </FrameLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/starIKL1"
+                        app:srcCompat="@drawable/direksi"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="bottom"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/starIKL2"
+                        app:srcCompat="@drawable/direksi"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="bottom"/>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/starIKL3"
+                        app:srcCompat="@drawable/direksi"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="bottom"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

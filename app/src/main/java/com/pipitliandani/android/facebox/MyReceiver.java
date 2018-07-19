@@ -16,12 +16,12 @@ public class MyReceiver extends BroadcastReceiver {
         if (intent.getAction() != null && context != null){
             if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)){
                 Log.d(TAG, "onReceive: BOOT_COMPLETED");
-                NotificationScheduler.setReminder(context, MyReceiver.class, 5, 0);
+                NotificationScheduler.setReminder(context, MyReceiver.class, 05, 00);
                 return;
             }
         }
         Log.d(TAG, "Receive");
-        NotificationScheduler.showNotification(context, NavigationDrawer.class, "It's your friend birthday_icon", "Tap to open");
+        NotificationScheduler.showNotification(context, NavigationDrawer.class, "It's your friend birthday", "Tap to open");
 
     }
 }

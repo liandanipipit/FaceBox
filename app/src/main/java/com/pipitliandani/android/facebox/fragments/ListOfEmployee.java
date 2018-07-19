@@ -153,7 +153,7 @@ public class ListOfEmployee extends Fragment {
         if (bundle != null){
             if (bundle.getBoolean("IS_ESELON")){
                 key = bundle.getString("UNIT_KEY");
-                limit = mDatabase.orderByChild("officials").startAt(key).endAt(key + "\uf8ff");
+                limit = mDatabase.orderByChild("officials").equalTo(key);
             } else if(bundle.getString("UNIT_KEY") != null){
                 limit = mDatabase.orderByChild("unit").equalTo(bundle.getString("UNIT_KEY"));
             } else if (bundle.getString("AsKom_KEY") != null) {
@@ -190,6 +190,8 @@ public class ListOfEmployee extends Fragment {
                             if ( !dataSnapshot.getKey().equals(currentID)) {
                                 FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                                 currentID = dataSnapshot.getKey();
+                                Log.d("key", currentID);
+                                currentModel.setKey(currentID);
                                 list.add(currentModel);
                                 adapter.notifyDataSetChanged();
                                 adapter.setLoaded();
@@ -203,7 +205,15 @@ public class ListOfEmployee extends Fragment {
 
                         @Override
                         public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                            if ( !dataSnapshot.getKey().equals(currentID)) {
+                                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
+                                currentID = dataSnapshot.getKey();
+                                Log.d("DELETED_KEY", currentID);
+                                currentModel.setKey(currentID);
+                                list.add(currentModel);
+                                adapter.notifyDataSetChanged();
+                                adapter.setLoaded();
+                            }
                         }
 
                         @Override
@@ -226,6 +236,7 @@ public class ListOfEmployee extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                 currentID = dataSnapshot.getKey();
+                currentModel.setKey(currentID);
                 list.add(currentModel);
                 adapter.notifyDataSetChanged();
             }
@@ -237,7 +248,18 @@ public class ListOfEmployee extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
+                currentID = dataSnapshot.getKey();
+                Log.d("DELETED_KEY", currentID);
+                int position = 0;
+                for (FaceBoxModel data: list) {
+                    if(data.getKey().equals(currentID)) {
+                        list.remove(position);
+                        break;
+                    }
+                    position++;
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,9 @@ public class BirthdayAdapter extends RecyclerView.Adapter<BirthdayAdapter.FaceVi
                     TotalItemCount = llm.getItemCount();
                     LastVisibleItem = llm.findLastVisibleItemPosition();
                     if (!loading && dy>0 && !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)){
-                        if (LoadListener != null){
-                            LoadListener.LoadMore();
-                        }
+//                        if (LoadListener != null){
+//                            LoadListener.LoadMore();
+//                        }
                         loading = true;
                     }
                 }
@@ -67,8 +68,13 @@ public class BirthdayAdapter extends RecyclerView.Adapter<BirthdayAdapter.FaceVi
     public void onBindViewHolder(FaceViewHolder holder, int position) {
         if (holder instanceof FaceViewHolder){
             final FaceBoxModel currentModel = list.get(position);
-            final Long key = currentModel.id;
-//            final String k = key.toString();
+            final String key = currentModel.key;
+            if (key == null){
+                Log.d("Badapter", "null");
+            }else {
+                Log.d("Badapter", key);
+            }
+
             holder.name.setText(currentModel.name);
             holder.unit.setText(currentModel.unit);
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class IKLAdapter extends RecyclerView.Adapter<IKLAdapter.FaceViewHolder> 
     List<FaceBoxModel> list;
     private int visibleThresHold = 10;
     private int LastVisibleItem, TotalItemCount;
-    String type = "";
+    public String type = "";
     private boolean loading;
     private com.pipitliandani.android.facebox.onLoadMore LoadListener;
 
@@ -45,9 +46,9 @@ public class IKLAdapter extends RecyclerView.Adapter<IKLAdapter.FaceViewHolder> 
                     TotalItemCount = llm.getItemCount();
                     LastVisibleItem = llm.findLastVisibleItemPosition();
                     if (!loading && dy>0 && !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)){
-                        if (LoadListener != null){
-                            LoadListener.LoadMore();
-                        }
+//                        if (LoadListener != null){
+//                            LoadListener.LoadMore();
+//                        }
                         loading = true;
                     }
                 }
@@ -76,18 +77,41 @@ public class IKLAdapter extends RecyclerView.Adapter<IKLAdapter.FaceViewHolder> 
     public void onBindViewHolder(final IKLAdapter.FaceViewHolder holder, int position) {
         if (holder instanceof IKLAdapter.FaceViewHolder){
             final FaceBoxModel currentModel = list.get(position);
-            final Long key = currentModel.id;
-            if (!currentModel.isHead){
-                holder.starIKl.setVisibility(View.GONE);
-            }
-
-            if (type.equals("IKL")){
-                holder.name.setText(currentModel.name);
-                holder.unit.setText(currentModel.unit);
-                holder.jabatan.setText(currentModel.ikl);
+            final String key = currentModel.key;
+            if (currentModel.workUnit.equals("Dewan Komisaris")){
+                holder.starIKl1.setVisibility(View.VISIBLE);
+                holder.starIKL2.setVisibility(View.VISIBLE);
+                holder.starIKl3.setVisibility(View.VISIBLE);
+            }else if (currentModel.officials.equals("Eselon I")){
+                holder.starIKl1.setVisibility(View.VISIBLE);
+                holder.starIKL2.setVisibility(View.VISIBLE);
+                holder.starIKl3.setVisibility(View.INVISIBLE);
+            }else if (currentModel.officials.equals("Eselon II")){
+                holder.starIKl1.setVisibility(View.VISIBLE);
+                holder.starIKL2.setVisibility(View.INVISIBLE);
+                holder.starIKl3.setVisibility(View.INVISIBLE);
+            }else if (currentModel.isHead){
+                holder.starIKl1.setVisibility(View.VISIBLE);
+                holder.starIKL2.setVisibility(View.INVISIBLE);
+                holder.starIKl3.setVisibility(View.INVISIBLE);
             } else {
-                holder.name.setText(currentModel.name);
-                holder.unit.setText(currentModel.unit);
+                holder.starIKl1.setVisibility(View.INVISIBLE);
+                holder.starIKL2.setVisibility(View.INVISIBLE);
+                holder.starIKl3.setVisibility(View.INVISIBLE);
+            }
+//            if (!currentModel.isHead){
+//                holder.starIKl.setVisibility(View.INVISIBLE);
+//            } else {
+//                holder.starIKl.setVisibility(View.VISIBLE);
+//            }
+
+            holder.name.setText(currentModel.name);
+            holder.unit.setText(currentModel.unit);
+            if (type.equals("IKL")){
+                Log.d("IKL", currentModel.ikl);
+                holder.jabatan.setText(currentModel.ikl);
+
+            } else {
                 holder.jabatan.setText(currentModel.pensionBudget);
             }
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);
@@ -123,7 +147,7 @@ public class IKLAdapter extends RecyclerView.Adapter<IKLAdapter.FaceViewHolder> 
         TextView name, unit, jabatan;
         CircleImageView photo;
         LinearLayout layout;
-        ImageView starIKl;
+        ImageView starIKl1, starIKL2,starIKl3;
 
         public FaceViewHolder(View itemView) {
             super(itemView);
@@ -132,7 +156,9 @@ public class IKLAdapter extends RecyclerView.Adapter<IKLAdapter.FaceViewHolder> 
             photo = itemView.findViewById(R.id.photoIKL);
             jabatan = itemView.findViewById(R.id.jabatanIKL);
             layout = itemView.findViewById(R.id.layoutItemViewIKL);
-            starIKl = itemView.findViewById(R.id.starIKL);
+            starIKl1 = itemView.findViewById(R.id.starIKL1);
+            starIKL2 = itemView.findViewById(R.id.starIKL2);
+            starIKl3 = itemView.findViewById(R.id.starIKL3);
 
         }
     }

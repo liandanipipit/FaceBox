@@ -111,7 +111,6 @@ public class BirthdayFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        ((AppCompatActivity)getActivity()).setTitle("Happy Birthday");
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -146,6 +145,9 @@ public class BirthdayFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Happy Birthday");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("employee");
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+//        Date date = new Date();
+//        String dateTime = dateFormat.format(date);
         String date = new SimpleDateFormat("dd/MM", Locale.getDefault()).format(new Date());
         limit = mDatabase.orderByChild("dateMonthBirth").equalTo(date);
 
@@ -162,13 +164,14 @@ public class BirthdayFragment extends Fragment {
             adapter.setLoadMore(new onLoadMore() {
                 @Override
                 public void LoadMore() {
-                    Query query = mDatabase.orderByKey().startAt(currentID).limitToFirst(10);
+                    Query query = limit.orderByKey().startAt(currentID).limitToFirst(10);
                     query.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             if ( !dataSnapshot.getKey().equals(currentID)) {
-                                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                                 currentID = dataSnapshot.getKey();
+                                FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
+                                currentModel.setKey(currentID);
                                 list.add(currentModel);
                                 adapter.notifyDataSetChanged();
                                 adapter.setLoaded();
@@ -205,6 +208,7 @@ public class BirthdayFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 FaceBoxModel currentModel = dataSnapshot.getValue(FaceBoxModel.class);
                 currentID = dataSnapshot.getKey();
+                currentModel.setKey(currentID);
                 list.add(currentModel);
                 adapter.notifyDataSetChanged();
             }

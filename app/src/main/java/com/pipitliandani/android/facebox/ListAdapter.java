@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,19 +78,44 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
     public void onBindViewHolder(final FaceViewHolder holder, int position) {
         if (holder instanceof FaceViewHolder){
             final FaceBoxModel currentModel = list.get(position);
-            final Long key = currentModel.id;
-//            final String k = key.toString();
+            final String key = currentModel.key;
 
             holder.name.setText(currentModel.name);
             holder.unit.setText(currentModel.unit);
+            holder.functionTitlelist.setText(currentModel.functionTitle);
+
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);
-            if(!currentModel.isHead) {
-                holder.star.setVisibility(View.GONE);
+            if (currentModel.unit.equals("Dewan Komisaris")){
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.VISIBLE);
+                holder.star3.setVisibility(View.VISIBLE);
+            }else if (currentModel.officials.equals("Eselon I")){
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.VISIBLE);
+                holder.star3.setVisibility(View.GONE);
+            }else if (currentModel.officials.equals("Eselon II")){
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.GONE);
+                holder.star3.setVisibility(View.GONE);
+            }else if (currentModel.isHead){
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.GONE);
+                holder.star3.setVisibility(View.GONE);
+            } else {
+                holder.star1.setVisibility(View.INVISIBLE);
+                holder.star2.setVisibility(View.INVISIBLE);
+                holder.star3.setVisibility(View.INVISIBLE);
             }
+//            if(!currentModel.isHead) {
+//                holder.star.setVisibility(View.INVISIBLE);
+//            } else {
+//                holder.star.setVisibility(View.VISIBLE);
+//            }
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(cntx, Profile.class);
+                    Log.d("PROFILE_CLICK", key);
                     intent.putExtra("key", key);
                     cntx.startActivity(intent);
                 }
@@ -115,10 +141,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
     }
 
     public static class FaceViewHolder extends RecyclerView.ViewHolder {
-        TextView name, unit;
+        TextView name, unit, functionTitlelist;
         CircleImageView photo;
         LinearLayout layout;
-        ImageView star;
+        ImageView star1, star2, star3;
 
         public FaceViewHolder(View itemView) {
             super(itemView);
@@ -126,7 +152,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
             unit = itemView.findViewById(R.id.unitListItem);
             photo = itemView.findViewById(R.id.photo);
             layout = itemView.findViewById(R.id.layoutItemView);
-            star = itemView.findViewById(R.id.star);
+            functionTitlelist = itemView.findViewById(R.id.functionTitleList);
+
+            star1 = itemView.findViewById(R.id.star1);
+            star2 = itemView.findViewById(R.id.star2);
+            star3 = itemView.findViewById(R.id.star3);
 
         }
     }

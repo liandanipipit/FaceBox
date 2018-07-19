@@ -33,6 +33,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="facebox_ptlen@gmail.com" />
+        android:text="facebox_ptlen@gmail.com"
+        android:visibility="gone"/>
 
 </LinearLayout>

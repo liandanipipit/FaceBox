@@ -36,6 +36,7 @@ import static android.content.ContentValues.TAG;
 
 public class Search extends AppCompatActivity implements SearchAdapter.SearchAdapterlistener {
     private static final String URL = "https://facebox-89904.firebaseio.com/employee.json";
+    private static final String URL1 = "https://facebox-89904.firebaseio.com/data.json";
     private List<FaceBoxModel> modelList;
     private SearchAdapter searchAdapter;
     private SearchView searchView;
@@ -76,11 +77,14 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
                             try {
                                 JSONObject object = response.getJSONObject(key);
                                 FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
+                                data.setKey(key);
+                                Log.d("search", key);
                                 modelList.add(data);
                             }catch (JSONException e){
                                 e.printStackTrace();
                             }
                         }
+
                         searchAdapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
@@ -101,6 +105,7 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
+        searchView.setQueryHint("Search by name, division, place of birth");
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -157,7 +162,7 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
 
     @Override
     public void onSearchSelected(FaceBoxModel model) {
-        Toast.makeText(getApplicationContext(), "Selected: " + model.getName() + ", " + model.getUnit(), Toast.LENGTH_LONG).show();
+        Log.d("Selected", model.getName() + ", " + model.getUnit() + ", " + model.getFunctionTitle());
 
     }
 }

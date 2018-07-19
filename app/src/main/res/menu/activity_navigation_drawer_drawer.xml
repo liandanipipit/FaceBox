@@ -13,10 +13,6 @@
             android:icon="@drawable/birthday_icon"
             android:title="Birthday" />
         <item
-            android:id="@+id/close_friends"
-            android:icon="@drawable/groups"
-            android:title="Close Friends" />
-        <item
             android:id="@+id/search"
             android:icon="@drawable/ic_search_black_24dp"
             android:title="Search" />
@@ -27,13 +23,13 @@
     <item android:title="Unit/Division">
         <menu>
             <item
-                android:id="@+id/division"
-                android:icon="@drawable/structure"
-                android:title="Unit/Division" />
-            <item
                 android:id="@+id/management"
                 android:icon="@drawable/structure"
                 android:title="Management" />
+            <item
+                android:id="@+id/division"
+                android:icon="@drawable/structure"
+                android:title="Unit/Division" />
             <item
                 android:id="@+id/unitBisnis"
                 android:icon="@drawable/structure"
@@ -52,5 +48,18 @@
                 android:title="Other" />
         </menu>
     </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Login"
+            android:title="Login" />
+        <item
+            android:id="@+id/Logout"
+            android:title="Logout" />
+        <item
+            android:id="@+id/admin"
+            android:title="Administrator" />
+
+
+    </group>
 
 </menu>

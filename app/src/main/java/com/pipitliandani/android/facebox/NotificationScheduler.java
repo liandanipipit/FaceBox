@@ -27,7 +27,7 @@ import java.util.Calendar;
 
 public class NotificationScheduler {
     public static final int DAILY_REMINDER_REQUEST_CODE = 100;
-    public static final String TAG = "com.pipitliandani.android.facebox.NotificationScheduler";
+    public static final String TAG = "NotificationScheduler";
     public static void setReminder(Context context, Class<?> cls, int hour, int min){
         Calendar calendar =  Calendar.getInstance();
         Calendar setCalendar = Calendar.getInstance();

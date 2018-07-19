@@ -173,7 +173,7 @@ public class Search extends Fragment implements SearchAdapter.SearchAdapterliste
                     @Override
                     public void onResponse(JSONArray response) {
                         if (response == null) {
-                            Toast.makeText(getContext(), "Couldn't fetch the contacts! Pleas try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Couldn't fetch the name! Please try again.", Toast.LENGTH_LONG).show();
                             return;
                         }
                         List<FaceBoxModel> items = new Gson().fromJson(response.toString(), new TypeToken<List<FaceBoxModel>>() {
