@@ -89,6 +89,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.VISIBLE);
                 holder.star3.setVisibility(View.VISIBLE);
+            }else if (currentModel.unit.equals("Direksi")) {
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.VISIBLE);
+                holder.star3.setVisibility(View.VISIBLE);
             }else if (currentModel.officials.equals("Eselon I")){
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.VISIBLE);
@@ -101,7 +105,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.GONE);
                 holder.star3.setVisibility(View.GONE);
-            } else {
+            }  else {
                 holder.star1.setVisibility(View.INVISIBLE);
                 holder.star2.setVisibility(View.INVISIBLE);
                 holder.star3.setVisibility(View.INVISIBLE);

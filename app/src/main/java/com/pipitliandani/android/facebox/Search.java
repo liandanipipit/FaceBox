@@ -35,7 +35,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class Search extends AppCompatActivity implements SearchAdapter.SearchAdapterlistener {
-    private static final String URL = "https://facebox-89904.firebaseio.com/employee.json";
+    private static final String URL = "https://faceboxprod.firebaseio.com/employee.json";
     private static final String URL1 = "https://facebox-89904.firebaseio.com/data.json";
     private List<FaceBoxModel> modelList;
     private SearchAdapter searchAdapter;

@@ -244,8 +244,6 @@ public class InputData extends AppCompatActivity {
                     head.check(currentModel.isHead() ? R.id.radioYes : R.id.radioNo);
                     if (currentModel.image_url != null){
                         filePath = Uri.parse(currentModel.image_url);
-                    } else {
-                        filePath = Uri.parse("http/");
                     }
                     Picasso.with(getApplicationContext()).load(currentModel.image_url).placeholder(R.color.grey).error(R.mipmap.ic_launcher).into(photo);
                 }
@@ -290,7 +288,7 @@ public class InputData extends AppCompatActivity {
     }
 
     public void updateData() {
-        if(photo.getDrawingCache() != null && photo.getDrawingCache() == null) {
+        if(photo.getDrawingCache() != null) {
             sRefPhoto = FirebaseStorage.getInstance().getReference().child("newProfilePhoto/" + name.getText() + ".jpg");
             StorageReference photoImagesRef = FirebaseStorage.getInstance().getReference().child("newProfilePhoto/" + name.getText() + ".jpg");
             sRefPhoto.getName().equals(photoImagesRef.getName());
@@ -355,7 +353,7 @@ public class InputData extends AppCompatActivity {
         nameKey = name.getText().toString();
         nikKey = nik.getText().toString();
         functionTitleKey = functionTitle.getText().toString();
-        dateMonthkey = new SimpleDateFormat("dd/MM", Locale.getDefault()).format(calendar.getTime());
+        dateMonthkey = bDay.getText().toString().substring(0, 4);
         emailKey = email.getText().toString();
         bDayKey = bDay.getText().toString();
         pBirth = placeBirth.getText().toString();
@@ -444,29 +442,6 @@ public class InputData extends AppCompatActivity {
         }
         finish();
     }
-//    public void UpdateTask(){
-//        DatabaseReference refUpdate = FirebaseDatabase.getInstance().getReference().child("data");
-//        refUpdate.keepSynced(true);
-//        refUpdate.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    snapshot.getRef().child("name").setValue(nameKey);
-//                    snapshot.getRef().child("nik").setValue(nikKey);
-//                    snapshot.getRef().child("functionTitle").setValue(functionTitleKey);
-//                    snapshot.getRef().child("email").setValue(emailKey);
-//                    snapshot.getRef().child("eduLevel").setValue(eduLevelKey);
-//                    pd.dismiss();
-//                    Toast.makeText(InputData.this, "Updated", Toast.LENGTH_LONG).show();
-//                    finish();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+
 }
 
