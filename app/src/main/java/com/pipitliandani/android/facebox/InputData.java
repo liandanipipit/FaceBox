@@ -51,6 +51,7 @@ public class InputData extends AppCompatActivity {
     RadioButton l, p, yes, no;
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
+    String currentPhoto = "";
     private static int RESULT_LOAD_IMAGE = 1;
     Uri filePath;
     //    String url_image;
@@ -59,8 +60,8 @@ public class InputData extends AppCompatActivity {
     ProgressDialog pd;
     int selectedItem, selItem;
     String nikKey, nameKey, functionTitleKey, dateMonthkey, emailKey,
-     bDayKey, pBirth, eduLevelKey, phoneKey, IKLKey, dpnKey, majorKey, unitKey,
-    workUnitKey, officialKey, url_image, typeKey, gender;
+            bDayKey, pBirth, eduLevelKey, phoneKey, IKLKey, dpnKey, majorKey, unitKey,
+            workUnitKey, officialKey, url_image, typeKey, gender;
 
     String dataKey = null;
 
@@ -82,7 +83,6 @@ public class InputData extends AppCompatActivity {
         yes = findViewById(R.id.radioYes);
         no = findViewById(R.id.radioNo);
         pd = new ProgressDialog(this);
-
 
 
         final String[] unitItem = new String[]{"", "Direksi", "Asisten Direksi", "Komite Audit",
@@ -165,7 +165,7 @@ public class InputData extends AppCompatActivity {
                 pd.setIndeterminate(true);
                 pd.show();
 
-                if(dataKey == null) {
+                if (dataKey == null) {
                     inputData();
                 } else {
                     updateData();
@@ -186,7 +186,7 @@ public class InputData extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
         if (extra != null) {
-            String key = extra.getString("key","");
+            String key = extra.getString("key", "");
             dataKey = key;
             Log.d("KEY_EDIT", key);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("employee");
@@ -242,10 +242,15 @@ public class InputData extends AppCompatActivity {
                     dapen.setText(currentModel.getPensionBudget());
                     rg.check(currentModel.getGender().equals("L") ? R.id.radioMale : R.id.radioFemale);
                     head.check(currentModel.isHead() ? R.id.radioYes : R.id.radioNo);
-                    if (currentModel.image_url != null){
+                    currentPhoto = currentModel.image_url;
+                    Log.d("UPDATE_DATA", currentModel.image_url.equals("") ? "empty" : "somthing else");
+                    if (!currentModel.image_url.equals("")) {
                         filePath = Uri.parse(currentModel.image_url);
+                        Picasso.with(getApplicationContext()).load(currentModel.image_url).placeholder(R.color.grey).error(R.mipmap.ic_launcher).into(photo);
+                    } else {
+                        Picasso.with(getApplicationContext()).load(R.drawable.default_image).placeholder(R.color.grey).into(photo);
                     }
-                    Picasso.with(getApplicationContext()).load(currentModel.image_url).placeholder(R.color.grey).error(R.mipmap.ic_launcher).into(photo);
+
                 }
 
                 @Override
@@ -288,7 +293,7 @@ public class InputData extends AppCompatActivity {
     }
 
     public void updateData() {
-        if(photo.getDrawingCache() != null) {
+        if (currentPhoto != "") {
             sRefPhoto = FirebaseStorage.getInstance().getReference().child("newProfilePhoto/" + name.getText() + ".jpg");
             StorageReference photoImagesRef = FirebaseStorage.getInstance().getReference().child("newProfilePhoto/" + name.getText() + ".jpg");
             sRefPhoto.getName().equals(photoImagesRef.getName());
@@ -310,6 +315,7 @@ public class InputData extends AppCompatActivity {
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("UPDATE_PHOTO", taskSnapshot.getDownloadUrl().toString());
                     filePath = taskSnapshot.getDownloadUrl();
                     UploadTask();
 
@@ -343,13 +349,12 @@ public class InputData extends AppCompatActivity {
     }
 
 
-
     public void UploadTask() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("employee");
 
 
         int selectedItem = rg.getCheckedRadioButtonId();
-        int selItem = head.getCheckedRadioButtonId();
+
         nameKey = name.getText().toString();
         nikKey = nik.getText().toString();
         functionTitleKey = functionTitle.getText().toString();
@@ -413,29 +418,30 @@ public class InputData extends AppCompatActivity {
 
         if (typeKey.equals("Retired")) {
             data.setRetired(true);
-        } else if (typeKey.equals("KWT")){
+        } else if (typeKey.equals("KWT")) {
             data.setKwl(true);
-        } else if (typeKey.equals("THL")){
+        } else if (typeKey.equals("THL")) {
             data.setThl(true);
-        }else {
+        } else {
             data.setThl(false);
             data.setKwl(false);
             data.setRetired(false);
         }
-        if (selItem == yes.getId()){
+        int selItem = head.getCheckedRadioButtonId();
+        if (selItem == yes.getId()) {
             data.setHead(true);
-        }else {
+        } else {
             data.setHead(false);
         }
         DatabaseReference newRef;
-        if(dataKey == null) {
+        if (dataKey == null) {
             newRef = ref.push();
         } else {
             newRef = ref.child(dataKey);
         }
         newRef.setValue(data);
         pd.dismiss();
-        if (dataKey == null){
+        if (dataKey == null) {
             Toast.makeText(InputData.this, "Saved", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(InputData.this, "Updated", Toast.LENGTH_LONG).show();

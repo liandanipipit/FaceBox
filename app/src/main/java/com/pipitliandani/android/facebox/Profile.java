@@ -108,7 +108,10 @@ public class Profile extends AppCompatActivity {
                 eduLevel.setText(eduLevelKey);
                 major.setText(majorKey);
                 phone.setText(phoneKey);
-                Picasso.with(context).load(imageUrl).placeholder(R.color.grey).error(R.mipmap.ic_launcher).into(image);
+                if (!detail.image_url.equals(""))
+                    Picasso.with(context).load(imageUrl).placeholder(R.color.grey).into(image);
+                else
+                    Picasso.with(context).load(R.drawable.default_image).placeholder(R.color.grey).into(image);
 
 
 

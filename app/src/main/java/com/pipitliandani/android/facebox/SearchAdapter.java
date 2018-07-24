@@ -1,5 +1,6 @@
 package com.pipitliandani.android.facebox;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private List<FaceBoxModel> Searchlist;
     private List<FaceBoxModel> SearchlistFiltered;
     private SearchAdapterlistener adapterlistener;
+    List<FaceBoxModel> filteredList;
+    TextView notFound;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,7 +45,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         final String key = faceBoxModel.getKey();
         holder.name1.setText(faceBoxModel.getName());
         holder.unit1.setText(faceBoxModel.getUnit());
-        Picasso.with(context).load(faceBoxModel.image_url).into(holder.photo);
+        holder.functionTitle.setText(faceBoxModel.getFunctionTitle());
+        if (!faceBoxModel.image_url.equals(""))
+            Picasso.with(context).load(faceBoxModel.image_url).into(holder.photo);
+        else
+            Picasso.with(context).load(R.drawable.default_image).placeholder(R.color.grey).into(holder.photo);
         if (faceBoxModel.workUnit.equals("Dewan Komisaris")){
             holder.star1.setVisibility(View.VISIBLE);
             holder.star2.setVisibility(View.VISIBLE);
@@ -64,6 +71,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.star2.setVisibility(View.INVISIBLE);
             holder.star3.setVisibility(View.INVISIBLE);
         }
+//        if(filteredList.size() == 0){
+//            holder.notFound.setVisibility(View.VISIBLE);
+//
+//        }
 //        if(!faceBoxModel.isHead) {
 //            holder.star1.setVisibility(View.INVISIBLE);
 //        } else {
@@ -94,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 if (cons.isEmpty()) {
                     SearchlistFiltered = Searchlist;
                 } else {
-                    List<FaceBoxModel> filteredList = new ArrayList<>();
+                    filteredList = new ArrayList<>();
                     for (FaceBoxModel row : Searchlist) {
                         if (row.getName().toLowerCase().contains(cons.toLowerCase()) ||
                                 row.getUnit().toLowerCase().contains(cons.toLowerCase()) ||
@@ -105,9 +116,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             filteredList.add(row);
                         }
                     }
-                    if(filteredList.size() == 0){
-                        Toast.makeText(context, cons + " tidak ditemukan", Toast.LENGTH_SHORT).show();
-                    }
+                    adapterlistener.onSearchCompleted(filteredList.size());
+
                     SearchlistFiltered = filteredList;
                 }
                 FilterResults filterResults = new FilterResults();
@@ -125,7 +135,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name1, unit1;
+        public TextView name1, unit1, functionTitle;
         public CircleImageView photo;
         public LinearLayout layout;
         ImageView star1, star2,star3;
@@ -139,24 +149,29 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             star1 = itemView.findViewById(R.id.star1);
             star2 = itemView.findViewById(R.id.star2);
             star3 = itemView.findViewById(R.id.star3);
+            functionTitle = itemView.findViewById(R.id.functionTitleList);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     adapterlistener.onSearchSelected(SearchlistFiltered.get(getAdapterPosition()));
+
                 }
             });
         }
     }
 
-    public SearchAdapter(Context context, List<FaceBoxModel> searchlist, SearchAdapterlistener adapterlistener) {
+    public SearchAdapter(Context context, List<FaceBoxModel> searchlist, SearchAdapterlistener adapterlistener, TextView notFound) {
         this.context = context;
         this.adapterlistener = adapterlistener;
         this.Searchlist = searchlist;
         this.SearchlistFiltered = searchlist;
+        this.notFound = (TextView) ((Activity) this.context).findViewById(R.id.notFound);
     }
 
     public interface SearchAdapterlistener {
         void onSearchSelected(FaceBoxModel model);
+        void onSearchCompleted(int total);
     }
 }

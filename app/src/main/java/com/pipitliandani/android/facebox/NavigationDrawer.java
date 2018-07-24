@@ -50,7 +50,6 @@ import com.pipitliandani.android.facebox.fragments.ListOfEmployeeOtherUnits;
 import com.pipitliandani.android.facebox.fragments.ManagementFragment;
 import com.pipitliandani.android.facebox.fragments.OtherFragment;
 import com.pipitliandani.android.facebox.fragments.OtherUnitFragment;
-import com.pipitliandani.android.facebox.fragments.Search;
 import com.pipitliandani.android.facebox.fragments.Subsidiaries;
 import com.pipitliandani.android.facebox.fragments.UBFragment;
 
@@ -65,7 +64,7 @@ import static android.content.ContentValues.TAG;
 public class NavigationDrawer extends AppCompatActivity
         implements BirthdayFragment.OnFragmentInteractionListener,
         CloseFriends.OnFragmentInteractionListener,Division.OnFragmentInteractionListener,
-        Search.OnFragmentInteractionListener, ListOfEmployee.OnFragmentInteractionListener,
+        ListOfEmployee.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener, ManagementFragment.OnFragmentInteractionListener,
         UBFragment.OnFragmentInteractionListener, OtherFragment.OnFragmentInteractionListener,
         Subsidiaries.OnFragmentInteractionListener, OtherUnitFragment.OnFragmentInteractionListener,

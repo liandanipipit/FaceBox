@@ -35,19 +35,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
     private boolean loading;
     private com.pipitliandani.android.facebox.onLoadMore LoadListener;
 
-    public ListAdapter(Context context, List<FaceBoxModel> list, RecyclerView recyclerView){
+    public ListAdapter(Context context, List<FaceBoxModel> list, RecyclerView recyclerView) {
         this.cntx = context;
         this.list = list;
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager){
-            final LinearLayoutManager llm = (LinearLayoutManager)recyclerView.getLayoutManager();
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+            final LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
                     TotalItemCount = llm.getItemCount();
                     LastVisibleItem = llm.findLastVisibleItemPosition();
-                    if (!loading && dy>0 && !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)){
-                        if (LoadListener != null){
+                    if (!loading && dy > 0 && !recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)) {
+                        if (LoadListener != null) {
                             LoadListener.LoadMore();
                         }
                         loading = true;
@@ -61,9 +61,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
     public FaceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         FaceViewHolder holder = null;
 
-        if (viewType ==1 ){
+        if (viewType == 1) {
             holder = new FaceViewHolder(LayoutInflater.from(cntx).inflate(R.layout.list_item, parent, false));
-        }else {
+        } else {
             holder = new LoadHolder(LayoutInflater.from(cntx).inflate(R.layout.load_item, parent, false));
         }
         return holder;
@@ -71,12 +71,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        return list.get(position)!= null ?1:0;
+        return list.get(position) != null ? 1 : 0;
     }
 
     @Override
     public void onBindViewHolder(final FaceViewHolder holder, int position) {
-        if (holder instanceof FaceViewHolder){
+        if (holder instanceof FaceViewHolder) {
             final FaceBoxModel currentModel = list.get(position);
             final String key = currentModel.key;
 
@@ -85,27 +85,43 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
             holder.functionTitlelist.setText(currentModel.functionTitle);
 
             Picasso.with(cntx).load(currentModel.image_url).into(holder.photo);
-            if (currentModel.unit.equals("Dewan Komisaris")){
+            if (currentModel.unit.equals("Dewan Komisaris")) {
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.VISIBLE);
                 holder.star3.setVisibility(View.VISIBLE);
-            }else if (currentModel.unit.equals("Direksi")) {
+            } else if (currentModel.unit.equals("Direksi")) {
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.VISIBLE);
                 holder.star3.setVisibility(View.VISIBLE);
-            }else if (currentModel.officials.equals("Eselon I")){
+            } else if (currentModel.officials.equals("Eselon I")) {
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.VISIBLE);
                 holder.star3.setVisibility(View.GONE);
-            }else if (currentModel.officials.equals("Eselon II")){
+            } else if (currentModel.officials.equals("Eselon II")) {
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.GONE);
                 holder.star3.setVisibility(View.GONE);
-            }else if (currentModel.isHead){
+            } else if (
+                    currentModel.unit.contains("PT.") &&
+                            (currentModel.functionTitle.contains("Direktur Utama")
+                                    || currentModel.functionTitle.contains("Vice President"))) {
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.VISIBLE);
+                holder.star3.setVisibility(View.GONE);
+
+            } else if (currentModel.unit.contains("PT.") && currentModel.functionTitle.contains("Direktur")) {
                 holder.star1.setVisibility(View.VISIBLE);
                 holder.star2.setVisibility(View.GONE);
                 holder.star3.setVisibility(View.GONE);
-            }  else {
+            } else if (currentModel.functionTitle.contains("Director")){
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.GONE);
+                holder.star3.setVisibility(View.GONE);
+            }else if (currentModel.isHead) {
+                holder.star1.setVisibility(View.VISIBLE);
+                holder.star2.setVisibility(View.GONE);
+                holder.star3.setVisibility(View.GONE);
+            } else {
                 holder.star1.setVisibility(View.INVISIBLE);
                 holder.star2.setVisibility(View.INVISIBLE);
                 holder.star3.setVisibility(View.INVISIBLE);
@@ -125,17 +141,20 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
                 }
             });
 
-        }else {
-            ((LoadHolder)holder).progressBar.setIndeterminate(true);
+        } else {
+            ((LoadHolder) holder).progressBar.setIndeterminate(true);
         }
     }
-    public void setLoaded(){
+
+    public void setLoaded() {
         loading = false;
     }
-    public void setLoad(){
+
+    public void setLoad() {
         loading = true;
     }
-    public void setLoadMore(com.pipitliandani.android.facebox.onLoadMore LoadListenet){
+
+    public void setLoadMore(com.pipitliandani.android.facebox.onLoadMore LoadListenet) {
         this.LoadListener = LoadListenet;
     }
 
@@ -164,8 +183,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FaceViewHolder
 
         }
     }
-    public static class LoadHolder extends FaceViewHolder{
+
+    public static class LoadHolder extends FaceViewHolder {
         public ProgressBar progressBar;
+
         public LoadHolder(View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.Progress_Item);

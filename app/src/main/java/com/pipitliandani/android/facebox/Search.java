@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -41,6 +42,7 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
     private SearchAdapter searchAdapter;
     private SearchView searchView;
     RecyclerView rViewSearch;
+    TextView notFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +54,10 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
 
         getSupportActionBar().setTitle("Search");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        rViewSearch = (RecyclerView)findViewById(R.id.rViewSearch);
         modelList = new ArrayList<>();
-        searchAdapter = new SearchAdapter(this, modelList, this);
+        rViewSearch = (RecyclerView)findViewById(R.id.rViewSearch);
+        notFound = (TextView) findViewById(R.id.notFound);
+        searchAdapter = new SearchAdapter(this, modelList, this, notFound);
         whiteNotificationBar(rViewSearch);
 
 
@@ -64,38 +66,38 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
         rViewSearch.setItemAnimator(new DefaultItemAnimator());
         rViewSearch.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 36));
         rViewSearch.setAdapter(searchAdapter);
-        fetchList();
+//        fetchList();
     }
-    private void fetchList(){
-        JsonObjectRequest request = new JsonObjectRequest(URL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Iterator iterator = response.keys();
-                        while (iterator.hasNext()) {
-                            String key = (String)iterator.next();
-                            try {
-                                JSONObject object = response.getJSONObject(key);
-                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
-                                data.setKey(key);
-                                Log.d("search", key);
-                                modelList.add(data);
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        searchAdapter.notifyDataSetChanged();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Error: " + error.getMessage());
-                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        MySearchApplication.getmInstance().addToRequestQueue(request);
-    }
+//    private void fetchList(){
+//        JsonObjectRequest request = new JsonObjectRequest(URL, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Iterator iterator = response.keys();
+//                        while (iterator.hasNext()) {
+//                            String key = (String)iterator.next();
+//                            try {
+//                                JSONObject object = response.getJSONObject(key);
+//                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
+//                                data.setKey(key);
+//                                Log.d("search", key);
+//                                modelList.add(data);
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                            }
+//                        }
+//
+//                        searchAdapter.notifyDataSetChanged();
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e(TAG, "Error: " + error.getMessage());
+//                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        MySearchApplication.getmInstance().addToRequestQueue(request);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,5 +166,61 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
     public void onSearchSelected(FaceBoxModel model) {
         Log.d("Selected", model.getName() + ", " + model.getUnit() + ", " + model.getFunctionTitle());
 
+    }
+
+    @Override
+    public void onSearchCompleted(int total) {
+        if (total == 0){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notFound.setVisibility(View.VISIBLE);
+                    rViewSearch.setVisibility(View.INVISIBLE);
+                }
+            });
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notFound.setVisibility(View.GONE);
+                    rViewSearch.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.d("SEARCH_ACT", "onPostResume");
+        modelList = new ArrayList<>();
+        JsonObjectRequest request = new JsonObjectRequest(URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Iterator iterator = response.keys();
+                        while (iterator.hasNext()) {
+                            String key = (String)iterator.next();
+                            try {
+                                JSONObject object = response.getJSONObject(key);
+                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
+                                data.setKey(key);
+                                Log.d("search", key);
+                                modelList.add(data);
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        searchAdapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Error: " + error.getMessage());
+                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        MySearchApplication.getmInstance().addToRequestQueue(request);
     }
 }
