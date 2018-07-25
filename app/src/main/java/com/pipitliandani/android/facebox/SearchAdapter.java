@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,19 +72,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.star2.setVisibility(View.INVISIBLE);
             holder.star3.setVisibility(View.INVISIBLE);
         }
-//        if(filteredList.size() == 0){
-//            holder.notFound.setVisibility(View.VISIBLE);
-//
-//        }
-//        if(!faceBoxModel.isHead) {
-//            holder.star1.setVisibility(View.INVISIBLE);
-//        } else {
-//            holder.star1.setVisibility(View.VISIBLE);
-//        }
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Profile.class);
+                Log.d("kunci", faceBoxModel.getKey());
                 intent.putExtra("key", key);
                 context.startActivity(intent);
             }
@@ -122,6 +116,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 }
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = SearchlistFiltered;
+//                filterResults.notify();
                 return filterResults;
             }
 

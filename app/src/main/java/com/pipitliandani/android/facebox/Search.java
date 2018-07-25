@@ -66,38 +66,38 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
         rViewSearch.setItemAnimator(new DefaultItemAnimator());
         rViewSearch.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 36));
         rViewSearch.setAdapter(searchAdapter);
-//        fetchList();
+        //fetchList();
     }
-//    private void fetchList(){
-//        JsonObjectRequest request = new JsonObjectRequest(URL, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Iterator iterator = response.keys();
-//                        while (iterator.hasNext()) {
-//                            String key = (String)iterator.next();
-//                            try {
-//                                JSONObject object = response.getJSONObject(key);
-//                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
-//                                data.setKey(key);
-//                                Log.d("search", key);
-//                                modelList.add(data);
-//                            }catch (JSONException e){
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                        searchAdapter.notifyDataSetChanged();
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, "Error: " + error.getMessage());
-//                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        MySearchApplication.getmInstance().addToRequestQueue(request);
-//    }
+    private void fetchList(){
+        JsonObjectRequest request = new JsonObjectRequest(URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Iterator iterator = response.keys();
+                        while (iterator.hasNext()) {
+                            String key = (String)iterator.next();
+                            try {
+                                JSONObject object = response.getJSONObject(key);
+                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
+                                data.setKey(key);
+                                Log.d("searchKey", key);
+                                modelList.add(data);
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.d("SearchSize", modelList.size()+"");
+                        searchAdapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Error: " + error.getMessage());
+                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        MySearchApplication.getmInstance().addToRequestQueue(request);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,6 +111,7 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
+
 
         // listening to search query text change
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -192,35 +193,24 @@ public class Search extends AppCompatActivity implements SearchAdapter.SearchAda
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.d("SEARCH_ACT", "onPostResume");
-        modelList = new ArrayList<>();
-        JsonObjectRequest request = new JsonObjectRequest(URL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Iterator iterator = response.keys();
-                        while (iterator.hasNext()) {
-                            String key = (String)iterator.next();
-                            try {
-                                JSONObject object = response.getJSONObject(key);
-                                FaceBoxModel data = new Gson().fromJson(object.toString(), FaceBoxModel.class);
-                                data.setKey(key);
-                                Log.d("search", key);
-                                modelList.add(data);
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        searchAdapter.notifyDataSetChanged();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Error: " + error.getMessage());
-                Toast.makeText(Search.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        MySearchApplication.getmInstance().addToRequestQueue(request);
+        Log.d("SearchData", "onPostResume");
+        modelList.clear();
+        fetchList();
+        if(searchView != null) {
+            searchView.clearFocus();
+            searchView.setQuery("", true);
+        }
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
+    //    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        Log.d("SEARCH_ACT", "onPostResume");
+//        modelList = new ArrayList<>();
+//        fetchList();
+//    }
 }

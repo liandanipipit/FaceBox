@@ -3,6 +3,7 @@ package com.pipitliandani.android.facebox;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaCas;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -183,6 +184,8 @@ public class Profile extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+//                Search search = new Search();
+//                search.onPostResume();
         }
         return super.onOptionsItemSelected(item);
     }
